@@ -56,4 +56,37 @@ class UserController extends Controller
         'orders' => $orders
     ]);
 }
+
+public function countUserOrders()
+{
+    $usersWithOrderCount = User::withCount('userToOrders')->get();
+
+    return $usersWithOrderCount;
 }
+
+public function getUsersWithReadyOrders()
+{
+    
+    $users = User::whereHas('orders', function ($query) {
+        $query->where('status', 'Ready');
+    })
+    ->with(['orders' => function ($query) {
+        $query->where('status', 'Ready');
+    }]) 
+    ->get([ 'name', 'order_id']); 
+
+   
+    return response()->json($users);
+}
+
+public function suscribedUsers(){
+    $activeUsers = User::where('is_subscribed', 'true')->get();
+
+}
+
+    
+
+
+}
+
+
