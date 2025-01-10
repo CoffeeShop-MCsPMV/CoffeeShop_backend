@@ -18,7 +18,9 @@ class ProductRecipeFactory extends Factory
     public function definition(): array
     {
         return [
-         //
+            'product' => Product::factory(), 
+            'ingredient' => Product::factory(), 
+            'quantity' => $this->faker->numberBetween(1, 10),
         ];
     }
 }

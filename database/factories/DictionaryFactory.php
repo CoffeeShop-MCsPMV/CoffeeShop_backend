@@ -17,7 +17,9 @@ class DictionaryFactory extends Factory
     public function definition(): array
     {
         return [
-       //
+            'id' => $this->faker->unique()->lexify('???'),
+            'description' => $this->faker->word,
+            'reference' => $this->faker->randomElement(['A', 'B', 'C'])
         ];
     }
 }

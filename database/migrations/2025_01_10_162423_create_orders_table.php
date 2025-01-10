@@ -17,11 +17,13 @@ return new class extends Migration
             $table->unsignedBigInteger('user');  // Külső kulcs
             $table->datetime('date');
             $table->decimal('total_cost', 10, 2)->default(0);
-            $table->char('order_status', 3);
+            $table->string('order_status');
             $table->timestamps();
         
             // Külső kulcs beállítása a 'user' oszlopra (users táblához)
             $table->foreign('user')->references('id')->on('users')->onDelete('cascade');
+            // $table->foreign('order_status')->references('id')->on('dictionaries')->onDelete('cascade');
+
         });
         
     }
