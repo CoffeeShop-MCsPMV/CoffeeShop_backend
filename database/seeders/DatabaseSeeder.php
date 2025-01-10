@@ -30,20 +30,6 @@ class DatabaseSeeder extends Seeder
         Content::factory(90)->create();
         
 
-        User::create([
-            'name' => 'Test Admin',  
-            'email' => 'testadmin@example.com',  
-            'password' => Hash::make('admin123'), 
-            'is_subscribed' => true,  
-            'profile_type' => 'A',  
-        ]);
-
-        User::create([
-            'name' => 'Test User',  
-            'email' => 'testuser@example.com',  
-            'password' => Hash::make('user123'), 
-            'is_subscribed' => true,  
-            'profile_type' => 'U',  
-        ]);
+        
     }
 }

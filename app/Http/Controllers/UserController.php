@@ -91,6 +91,7 @@ public function getUsersWithReadyOrders()
 
 public function suscribedUsers(){
     $activeUsers = User::where('is_subscribed', 'true')->get();
+    return response()->json($activeUsers);
 
 }
 
