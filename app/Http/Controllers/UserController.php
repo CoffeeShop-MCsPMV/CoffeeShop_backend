@@ -1,8 +1,11 @@
 <?php
 
 namespace App\Http\Controllers;
+use Illuminate\Support\Facades\Auth;
 
+use App\Models\Order;
 use App\Models\User;
+// use Illuminate\Container\Attributes\Auth;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -83,6 +86,46 @@ public function suscribedUsers(){
     $activeUsers = User::where('is_subscribed', 'true')->get();
 
 }
+
+
+
+
+
+public function getMostPurchasedProduct()
+{
+    // Az aktuálisan bejelentkezett felhasználó
+    $user = Auth::user();
+
+    // Lekérjük a leggyakrabban vásárolt készterméket
+    $mostPurchasedProduct = Order::where('user_id', $user->id) // A bejelentkezett felhasználó rendelései
+        ->whereHas('items.content.product') // Csak azok a rendelési tételek, amelyekhez termék tartozik a content-en keresztül
+        ->withCount(['items as product_count' => function ($query) {
+            $query->selectRaw('count(*)'); // Összesíti a termékek számát
+        }])
+        ->join('order_items', 'orders.order_id', '=', 'order_items.order_id') // Csatlakoztatjuk az order_items táblát
+        ->join('contents', 'order_items.cup_id', '=', 'contents.cup_id') // Csatlakoztatjuk a content-táblát
+        ->join('products', 'contents.product_id', '=', 'products.id') // Csatlakoztatjuk a termékeket
+        ->groupBy('products.id') // Csoportosítjuk termékek szerint
+        ->orderByDesc('product_count') // Legnagyobb számú vásárlás szerint rendezzük
+        ->limit(1) // Csak az első (leggyakrabban vásárolt) terméket kérjük le
+        ->select('products.id', 'products.name', 'product_count')
+        ->first();
+
+    // Ha van leggyakrabban vásárolt termék, visszaadjuk
+    if ($mostPurchasedProduct) {
+        return response()->json([
+            'product_id' => $mostPurchasedProduct->id,
+            'product_name' => $mostPurchasedProduct->name,
+            'purchases_count' => $mostPurchasedProduct->product_count,
+        ]);
+    }
+
+    // Ha nincs vásárolt termék, üzenet
+    return response()->json(['message' => 'No purchases found.']);
+}
+
+
+
 
     
 

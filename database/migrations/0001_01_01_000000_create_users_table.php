@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
-            $table->boolean('is_subscribed');
+            $table->boolean('is_subscribed')->default('false');
             $table->char('profile_type');
         });
 
