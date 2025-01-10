@@ -29,6 +29,9 @@ Route::middleware(['auth:sanctum'])
         Route::get('/contents/{cup_id}', [ContentController::class, 'show']);
         Route::post('/contents', [ContentController::class, 'store']);
         Route::post('/logout', [AuthenticatedSessionController::class, 'destroy']);
+        Route::get('/user/most-purchased-product', [UserController::class, 'getMostPurchasedProduct']);
+        Route::get('/user/order-count', [UserController::class, 'countUserOrders']);
+
     });
 
 Route::middleware(['auth:sanctum', Admin::class])
@@ -55,4 +58,7 @@ Route::middleware(['auth:sanctum', Admin::class])
         Route::get('/products/by-type', [ProductController::class, 'getProductsByType']);
         Route::get('/users/{id}/orders', [UserController::class, 'getUserOrders']);
         Route::get('/orders/by-status', [OrderController::class, 'getOrdersByStatus']);
+        Route::get('/users/ready-orders', [UserController::class, 'getUsersWithReadyOrders']);
+        Route::get('/users/subscribed', [UserController::class, 'suscribedUsers']);
+     
     });

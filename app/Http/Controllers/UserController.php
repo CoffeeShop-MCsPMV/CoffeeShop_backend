@@ -60,12 +60,19 @@ class UserController extends Controller
     ]);
 }
 
+
 public function countUserOrders()
 {
-    $usersWithOrderCount = User::withCount('userToOrders')->get();
+    // Az autentikált felhasználó lekérése
+    $user = Auth::user();
 
-    return $usersWithOrderCount;
+    // Az autentikált felhasználó rendeléseinek számának lekérése
+    $orderCount = Order::where('user_id', $user->id)->count();
+
+    // Visszaadjuk a rendelés számát
+    return response()->json(['order_count' => $orderCount]);
 }
+
 
 public function getUsersWithReadyOrders()
 {
