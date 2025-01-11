@@ -24,23 +24,23 @@ class ProductRecipe extends Model
     // Kapcsolat a termékek táblával
     public function product()
     {
-        return $this->belongsTo(Product::class, 'product');
+        return $this->hasMany(Product::class, 'product');
     }
 
     public function ingredient()
     {
-        return $this->belongsTo(Product::class, 'ingredient');
+        return $this->hasMany(Product::class, 'ingredient');
     }
 
     public function ingredients()
     {
-        return $this->belongsTo(Product::class, 'ingredient', 'product_id') 
+        return $this->hasMany(Product::class, 'ingredient', 'product_id') 
             ->where('type', 'I'); 
     }
 
     public function finishedProduct()
     {
-        return $this->belongsTo(Product::class, 'product', 'product_id') 
+        return $this->hasMany(Product::class, 'product', 'product_id') 
             ->where('type', 'F'); 
     }
 }
