@@ -8,19 +8,19 @@ use Illuminate\Support\Facades\DB;
 
 class OrderController extends Controller
 {
-      // Összes rendelés lekérdezése
+     
       public function index()
       {
           return Order::all();
       }
   
-      // Egy adott rendelés lekérdezése az order_id alapján
+      
       public function show($order_id)
       {
           return Order::find($order_id);
       }
   
-      // Új rendelés létrehozása
+      
       public function store(Request $request)
       {
           $record = new Order();
@@ -28,7 +28,7 @@ class OrderController extends Controller
           $record->save();
       }
   
-      // Rendelés frissítése
+     
       public function update(Request $request, $order_id)
       {
           $record = Order::find($order_id);
@@ -41,7 +41,7 @@ class OrderController extends Controller
           $record->save();
       }
   
-      // Rendelés törlése
+      
       public function destroy($order_id)
       {
           $record = Order::find($order_id);
@@ -55,22 +55,21 @@ class OrderController extends Controller
   
       public function monthlyIncome()
       {
-          // Lekérdezzük az éves bevételt hónapokra bontva
           $bevetel = Order::select(
               DB::raw('YEAR(dátum) as ev'),
               DB::raw('MONTH(dátum) as honap'),
               DB::raw('SUM(végösszeg) as havi_bevetel')
           )
-              ->whereYear('dátum', now()->year) // Csak az aktuális év
+              ->whereYear('dátum', now()->year) 
               ->groupBy(DB::raw('YEAR(dátum), MONTH(dátum)'))
-              ->orderBy(DB::raw('MONTH(dátum)')) // Hónapok szerint növekvő sorrend
+              ->orderBy(DB::raw('MONTH(dátum)')) 
               ->get();
       }
   
   
       public function getOrdersByStatus(Request $request)
       {
-          // Lekérdezés paraméterként kapott státusz alapján
+          
           $status = $request->query('status', 'Processing'); 
   
           
@@ -81,7 +80,7 @@ class OrderController extends Controller
   
           
           $orders = Order::where('status', $status)
-              ->orderBy('created_at', 'asc') // Legújabb rendelések előre
+              ->orderBy('created_at', 'asc') 
               ->get(['order_number', 'user_id', 'total_price', 'status', 'created_at']);
   
           return response()->json($orders);

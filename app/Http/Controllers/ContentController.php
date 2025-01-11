@@ -36,7 +36,7 @@ class ContentController extends Controller
 
     public function contentsOfCup()
     {
-        $content = Content::with('product', 'productRecipe') // Betöltjük a terméket és a receptet
+        $content = Content::with('product', 'productRecipe') 
             ->orderBy('cup_id')
             ->get();
     }

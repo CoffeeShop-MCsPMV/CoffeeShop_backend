@@ -47,12 +47,12 @@ class OrderItemController extends Controller
     {
         $topItems = Content::select('product_id', DB::raw('COUNT(*) as total_count'))
             ->whereHas('product', function ($query) {
-                $query->where('jelleg', 'T'); // Csak késztermékek
+                $query->where('jelleg', 'T'); 
             })
             ->groupBy('product_id')
             ->orderByDesc('total_count')
-            ->with('product') // Termékek betöltése
-            ->take(3) // Csak top 3
+            ->with('product') 
+            ->take(3) 
             ->get();
     }
 }

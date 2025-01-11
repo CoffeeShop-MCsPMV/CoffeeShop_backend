@@ -21,7 +21,7 @@ class ProductRecipe extends Model
 
     public $timestamps = true;
 
-    // Kapcsolat a termékek táblával
+    
     public function product()
     {
         return $this->belongsTo(Product::class, 'product');
