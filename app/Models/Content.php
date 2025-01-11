@@ -14,7 +14,7 @@ class Content extends Model
         'product_id',
         'product_type'
     ];
-    
+
     protected function setKeysForSaveQuery($query)
     {
         $query
@@ -26,7 +26,7 @@ class Content extends Model
 
     public function orderItem()
     {
-        return $this->belongsTo(OrderItem::class, 'cup_id', 'cup_id');  
+        return $this->belongsTo(OrderItem::class, 'cup_id', 'cup_id');
     }
 
     public function product()

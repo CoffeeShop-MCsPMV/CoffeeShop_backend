@@ -7,12 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
 {
-    /** @use HasFactory<\Database\Factories\ProductFactory> */
     use HasFactory;
 
     protected $primaryKey = 'product_id';
     
-
     protected $fillable = [
         'product_name',
         'type',

@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class ProductRecipe extends Model
 {
-    /** @use HasFactory<\Database\Factories\ProductRecipeFactory> */
     use HasFactory;
     
     protected $primaryKey = ['product', 'ingredient'];

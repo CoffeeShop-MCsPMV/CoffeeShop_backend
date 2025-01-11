@@ -9,19 +9,13 @@ use App\Models\OrderItem;
 use App\Models\Product;
 use App\Models\ProductRecipe;
 use App\Models\User;
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
 {
-    /**
-     * Seed the application's database.
-     */
     public function run(): void
     {
-  
-
         Dictionary::factory(20)->create();
         User::factory(10)->create();
         Product::factory(30)->create();
@@ -29,8 +23,5 @@ class DatabaseSeeder extends Seeder
         OrderItem::factory(60)->create();
         Content::factory(90)->create();
         ProductRecipe::factory(10)->create();
-        
-
-        
     }
 }

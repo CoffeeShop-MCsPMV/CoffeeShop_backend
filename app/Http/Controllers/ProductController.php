@@ -9,9 +9,7 @@ class ProductController extends Controller
 {
     public function index()
     {
-       return Product::all();
-
-        
+        return Product::all();
     }
 
     public function store(Request $request)
@@ -33,7 +31,6 @@ class ProductController extends Controller
     public function show($id)
     {
         return Product::find($id);
-       
     }
 
     public function update(Request $request, $id)
@@ -48,7 +45,7 @@ class ProductController extends Controller
             'current_price' => 'sometimes|numeric|min:0',
             'unit_ml' => 'sometimes|integer|min:0',
         ]);
-        
+
         $product->fill($validatedData);
         $product->save();
     }
@@ -64,10 +61,10 @@ class ProductController extends Controller
         if (!in_array($type, ['I', 'F'])) {
             return response()->json(['error' => 'Type is not find'], 400);
         }
-    
+
         $products = Product::where('type', $type)
-            ->orderBy('product_name') 
-            ->get(['product_name', 'current_price','chategory', 'is_available' ]);
-            return response()->json($products, 200);
+            ->orderBy('product_name')
+            ->get(['product_name', 'current_price', 'chategory', 'is_available']);
+        return response()->json($products, 200);
     }
 }

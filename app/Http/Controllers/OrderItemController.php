@@ -11,12 +11,9 @@ class OrderItemController extends Controller
 {
     public function index()
     {
-       return OrderItem::all();
-
-        
+        return OrderItem::all();
     }
 
-    
     public function show($cup_id, $order_id)
     {
         return OrderItem::where('cup_id', $cup_id)
@@ -55,12 +52,13 @@ class OrderItemController extends Controller
     {
         $topItems = Content::select('product_id', DB::raw('COUNT(*) as total_count'))
             ->whereHas('product', function ($query) {
-                $query->where('jelleg', 'T'); 
+                $query->where('jelleg', 'T');
             })
             ->groupBy('product_id')
             ->orderByDesc('total_count')
-            ->with('product') 
-            ->take(3) 
+            ->with('product')
+            ->take(3)
             ->get();
+            return response()->json($topItems);
     }
 }

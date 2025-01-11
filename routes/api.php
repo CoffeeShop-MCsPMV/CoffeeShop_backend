@@ -34,7 +34,6 @@ Route::middleware(['auth:sanctum'])
         Route::post('/logout', [AuthenticatedSessionController::class, 'destroy']);
         Route::get('/users/most-purchased-product', [UserController::class, 'getMostPurchasedProduct']);
         Route::get('/users/order-count', [UserController::class, 'countUserOrders']);
-
     });
 
 Route::middleware(['auth:sanctum', Admin::class])
@@ -52,7 +51,6 @@ Route::middleware(['auth:sanctum', Admin::class])
         Route::post('/product-recipes', [ProductRecipeController::class, 'store']);
         Route::get('/product-recipes/{product}/{ingredient}', [ProductRecipeController::class, 'show']);
         Route::put('/product-recipes/{product}/{ingredient}', [ProductRecipeController::class, 'update']);
-
         Route::get('/product_recipes/ingredients-of-product', [ProductRecipeController::class, 'ingredientsOfProduct']);
         Route::get('/contents/contents-of-cup', [ContentController::class, 'contentsOfCup']);
         Route::get('/orders/monthly-income', [OrderController::class, 'monthlyIncome']);

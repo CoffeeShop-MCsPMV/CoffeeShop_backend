@@ -6,9 +6,6 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
         Schema::create('contents', function (Blueprint $table) {
@@ -18,16 +15,11 @@ return new class extends Migration
             $table->char('product_type', 1);  
             $table->timestamps();
             
-           
             $table->foreign('cup_id')->references('cup_id')->on('order_items')->onDelete('cascade');
             $table->foreign('product_id')->references('product_id')->on('products')->onDelete('cascade');
         });
     }
-    
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::dropIfExists('contents');

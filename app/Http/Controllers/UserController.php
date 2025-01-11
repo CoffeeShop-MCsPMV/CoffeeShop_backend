@@ -62,7 +62,6 @@ class UserController extends Controller
     ]);
 }
 
-
 public function countUserOrders()
 {
     $user = Auth::user();
@@ -78,11 +77,8 @@ public function countUserOrders()
     ], 200);
 }
 
-
-
 public function getUsersWithReadyOrders()
 {
-    
     $users = User::whereHas('orders', function ($query) {
         $query->where('status', 'Ready');
     })
@@ -90,7 +86,6 @@ public function getUsersWithReadyOrders()
         $query->where('status', 'Ready');
     }]) 
     ->get([ 'name', 'order_id']); 
-
    
     return response()->json($users);
 }
@@ -98,19 +93,12 @@ public function getUsersWithReadyOrders()
 public function suscribedUsers(){
     $activeUsers = User::where('is_subscribed', 'true')->get();
     return response()->json($activeUsers);
-
 }
-
-
-
-
 
 public function getMostPurchasedProduct()
 {
-    
     $user = Auth::user();
 
-    
     $mostPurchasedProduct = Order::where('user_id', $user->id) 
         ->whereHas('items.content.product') 
         ->withCount(['items as product_count' => function ($query) {
@@ -125,7 +113,6 @@ public function getMostPurchasedProduct()
         ->select('products.id', 'products.name', 'product_count')
         ->first();
 
-    
     if ($mostPurchasedProduct) {
         return response()->json([
             'product_id' => $mostPurchasedProduct->id,
@@ -133,8 +120,6 @@ public function getMostPurchasedProduct()
             'purchases_count' => $mostPurchasedProduct->product_count,
         ]);
     }
-
-    
     return response()->json(['message' => 'No purchases found.']);
 }
 

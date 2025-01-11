@@ -7,11 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class OrderItem extends Model
 {
-    /** @use HasFactory<\Database\Factories\OrderItemFactory> */
     use HasFactory;
 
     protected $primaryKey = 'cup_id';
-
 
     protected $fillable = [
         'order_id',
@@ -21,7 +19,6 @@ class OrderItem extends Model
     protected $attributes = [
         'item_price' => 0.00,
     ];
-
 
     public function order()
     {
