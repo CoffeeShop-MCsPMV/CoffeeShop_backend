@@ -68,21 +68,25 @@ class OrderController extends Controller
   
   
       public function getOrdersByStatus(Request $request)
-      {
-          
-          $status = $request->query('status', 'Processing'); 
-  
-          
-          $validStatuses = ['Received', 'Processing', 'Ready', 'Released', 'Archive'];
-          if (!in_array($status, $validStatuses)) {
-              return response()->json(['error' => 'Not fund status'], 400);
-          }
-  
-          
-          $orders = Order::where('status', $status)
-              ->orderBy('created_at', 'asc') 
-              ->get(['order_number', 'user_id', 'total_price', 'status', 'created_at']);
-  
-          return response()->json($orders);
-      }
+{
+    $status = $request->query('status', 'Processing'); 
+
+    $validStatuses = ['Received', 'Processing', 'Ready', 'Released', 'Archive'];
+    if (!in_array($status, $validStatuses)) {
+        return response()->json(['error' => 'Not found status'], 400);
+    }
+
+    
+    $orders = Order::where('order_status', $status)
+        ->orderBy('created_at', 'asc') 
+        ->get(['order_number', 'user_id', 'total_price', 'order_status', 'created_at']);
+
+    
+    if ($orders->isEmpty()) {
+        return response()->json(['message' => 'No orders found with status ' . $status], 404);
+    }
+
+    return response()->json($orders);
+}
+
 }

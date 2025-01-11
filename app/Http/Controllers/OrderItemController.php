@@ -9,6 +9,14 @@ use Illuminate\Support\Facades\DB;
 
 class OrderItemController extends Controller
 {
+    public function index()
+    {
+       return OrderItem::all();
+
+        
+    }
+
+    
     public function show($cup_id, $order_id)
     {
         return OrderItem::where('cup_id', $cup_id)

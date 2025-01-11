@@ -65,15 +65,19 @@ class UserController extends Controller
 
 public function countUserOrders()
 {
-    
     $user = Auth::user();
 
-    
+    if (!$user) {
+        return response()->json(['message' => 'User not authenticated'], 401);
+    }
+
     $orderCount = Order::where('user_id', $user->id)->count();
 
-    
-    return response()->json(['order_count' => $orderCount]);
+    return response()->json([
+        'order_count' => $orderCount
+    ], 200);
 }
+
 
 
 public function getUsersWithReadyOrders()
