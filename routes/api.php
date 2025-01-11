@@ -10,6 +10,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductRecipeController;
 use App\Http\Controllers\UserController;
 use App\Http\Middleware\Admin;
+use Database\Factories\OrderItemFactory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -26,11 +27,13 @@ Route::middleware(['auth:sanctum'])
         Route::put('/users/{id}', [UserController::class, 'update']);
         Route::post('/orders', [OrderController::class, 'store']);
         Route::get('/products', [ProductController::class, 'index']);
-        Route::get('/contents/{cup_id}', [ContentController::class, 'show']);
+        Route::get('/contents/{cup_id}/{product_id}', [ContentController::class, 'show']);
         Route::post('/contents', [ContentController::class, 'store']);
+        Route::post('/order_items', [OrderItemController::class, 'store']);
+        Route::get('/order_items', [OrderItemController::class, 'index']);
         Route::post('/logout', [AuthenticatedSessionController::class, 'destroy']);
-        Route::get('/user/most-purchased-product', [UserController::class, 'getMostPurchasedProduct']);
-        Route::get('/user/order-count', [UserController::class, 'countUserOrders']);
+        Route::get('/users/most-purchased-product', [UserController::class, 'getMostPurchasedProduct']);
+        Route::get('/users/order-count', [UserController::class, 'countUserOrders']);
 
     });
 
@@ -49,7 +52,7 @@ Route::middleware(['auth:sanctum', Admin::class])
         Route::post('/product-recipes', [ProductRecipeController::class, 'store']);
         Route::get('/product-recipes/{product}/{ingredient}', [ProductRecipeController::class, 'show']);
         Route::put('/product-recipes/{product}/{ingredient}', [ProductRecipeController::class, 'update']);
-        Route::post('/order_items', [OrderItemController::class, 'store']);
+
         Route::get('/product_recipes/ingredients-of-product', [ProductRecipeController::class, 'ingredientsOfProduct']);
         Route::get('/contents/contents-of-cup', [ContentController::class, 'contentsOfCup']);
         Route::get('/orders/monthly-income', [OrderController::class, 'monthlyIncome']);
