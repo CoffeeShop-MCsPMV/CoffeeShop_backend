@@ -37,6 +37,6 @@ class User extends Authenticatable
     }
 
     public function isAdmin()  {
-        return $this->role === "A";
+        return $this->profile_type === "A";
     }
 }

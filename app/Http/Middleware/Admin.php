@@ -16,7 +16,7 @@ class Admin
      */
     public function handle(Request $request, Closure $next)
     {
-        if (!Auth::check() || !(Auth::user()->role === 0)) {
+        if (!Auth::check() || !(Auth::user()->profile_type === 'A')) {
             return response()->json(['message' => 'Unauthorized'], 403);
         }
         return $next($request); //folytatódhat a kérés
