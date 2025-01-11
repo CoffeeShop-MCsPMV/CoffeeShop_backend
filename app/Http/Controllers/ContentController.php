@@ -39,5 +39,6 @@ class ContentController extends Controller
         $content = Content::with('product', 'productRecipe') 
             ->orderBy('cup_id')
             ->get();
+            return response()->json($content);
     }
 }

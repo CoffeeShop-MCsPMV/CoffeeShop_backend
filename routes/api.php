@@ -63,5 +63,4 @@ Route::middleware(['auth:sanctum', Admin::class])
         Route::get('/orders/by-status', [OrderController::class, 'getOrdersByStatus']);
         Route::get('/users/ready-orders', [UserController::class, 'getUsersWithReadyOrders']);
         Route::get('/users/subscribed', [UserController::class, 'suscribedUsers']);
-     
     });
