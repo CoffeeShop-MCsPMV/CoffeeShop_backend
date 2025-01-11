@@ -67,5 +67,6 @@ class ProductController extends Controller
         $products = Product::where('type', $type)
             ->orderBy('product_name') 
             ->get(['product_name', 'current_price','chategory', 'is_available' ]);
+            return response()->json($products, 200);
     }
 }

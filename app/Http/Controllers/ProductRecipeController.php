@@ -55,5 +55,6 @@ class ProductRecipeController extends Controller
     public function ingredientsOfProduct()
     {
         $recipe = ProductRecipe::with(['ingredients', 'finishedProduct'])->get();
+        return response()->json($recipe);
     }
 }
