@@ -8,9 +8,6 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
         Schema::create('users', function (Blueprint $table) {
@@ -41,25 +38,22 @@ return new class extends Migration
         });
 
         User::create([
-            'name' => 'Test Admin',  
-            'email' => 'testadmin@example.com',  
-            'password' => Hash::make('admin123'), 
-            'is_subscribed' => true,  
-            'profile_type' => 'A',  
+            'name' => 'Test Admin',
+            'email' => 'testadmin@example.com',
+            'password' => Hash::make('admin123'),
+            'is_subscribed' => true,
+            'profile_type' => 'A',
         ]);
 
         User::create([
-            'name' => 'Test User',  
-            'email' => 'testuser@example.com',  
-            'password' => Hash::make('user123'), 
-            'is_subscribed' => true,  
-            'profile_type' => 'U',  
+            'name' => 'Test User',
+            'email' => 'testuser@example.com',
+            'password' => Hash::make('user123'),
+            'is_subscribed' => true,
+            'profile_type' => 'U',
         ]);
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::dropIfExists('users');

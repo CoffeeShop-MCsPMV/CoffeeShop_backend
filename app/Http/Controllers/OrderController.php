@@ -64,6 +64,7 @@ class OrderController extends Controller
               ->groupBy(DB::raw('YEAR(dátum), MONTH(dátum)'))
               ->orderBy(DB::raw('MONTH(dátum)')) 
               ->get();
+              return response()->json($bevetel);
       }
   
   

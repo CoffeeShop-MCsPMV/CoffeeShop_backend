@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Content extends Model
 {
-    /** @use HasFactory<\Database\Factories\ContentFactory> */
     use HasFactory;
 
     protected $fillable = [
@@ -25,13 +24,11 @@ class Content extends Model
         return $query;
     }
 
-    
     public function orderItem()
     {
         return $this->belongsTo(OrderItem::class, 'cup_id', 'cup_id');  
     }
 
-    
     public function product()
     {
         return $this->belongsTo(Product::class, 'product_id', 'product_id');
