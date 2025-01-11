@@ -65,13 +65,13 @@ class UserController extends Controller
 
 public function countUserOrders()
 {
-    // Az autentikált felhasználó lekérése
+    
     $user = Auth::user();
 
-    // Az autentikált felhasználó rendeléseinek számának lekérése
+    
     $orderCount = Order::where('user_id', $user->id)->count();
 
-    // Visszaadjuk a rendelés számát
+    
     return response()->json(['order_count' => $orderCount]);
 }
 
@@ -103,25 +103,25 @@ public function suscribedUsers(){
 
 public function getMostPurchasedProduct()
 {
-    // Az aktuálisan bejelentkezett felhasználó
+    
     $user = Auth::user();
 
-    // Lekérjük a leggyakrabban vásárolt készterméket
-    $mostPurchasedProduct = Order::where('user_id', $user->id) // A bejelentkezett felhasználó rendelései
-        ->whereHas('items.content.product') // Csak azok a rendelési tételek, amelyekhez termék tartozik a content-en keresztül
+    
+    $mostPurchasedProduct = Order::where('user_id', $user->id) 
+        ->whereHas('items.content.product') 
         ->withCount(['items as product_count' => function ($query) {
-            $query->selectRaw('count(*)'); // Összesíti a termékek számát
+            $query->selectRaw('count(*)'); 
         }])
-        ->join('order_items', 'orders.order_id', '=', 'order_items.order_id') // Csatlakoztatjuk az order_items táblát
-        ->join('contents', 'order_items.cup_id', '=', 'contents.cup_id') // Csatlakoztatjuk a content-táblát
-        ->join('products', 'contents.product_id', '=', 'products.id') // Csatlakoztatjuk a termékeket
-        ->groupBy('products.id') // Csoportosítjuk termékek szerint
-        ->orderByDesc('product_count') // Legnagyobb számú vásárlás szerint rendezzük
-        ->limit(1) // Csak az első (leggyakrabban vásárolt) terméket kérjük le
+        ->join('order_items', 'orders.order_id', '=', 'order_items.order_id') 
+        ->join('contents', 'order_items.cup_id', '=', 'contents.cup_id') 
+        ->join('products', 'contents.product_id', '=', 'products.id') 
+        ->groupBy('products.id')
+        ->orderByDesc('product_count') 
+        ->limit(1) 
         ->select('products.id', 'products.name', 'product_count')
         ->first();
 
-    // Ha van leggyakrabban vásárolt termék, visszaadjuk
+    
     if ($mostPurchasedProduct) {
         return response()->json([
             'product_id' => $mostPurchasedProduct->id,
@@ -130,7 +130,7 @@ public function getMostPurchasedProduct()
         ]);
     }
 
-    // Ha nincs vásárolt termék, üzenet
+    
     return response()->json(['message' => 'No purchases found.']);
 }
 

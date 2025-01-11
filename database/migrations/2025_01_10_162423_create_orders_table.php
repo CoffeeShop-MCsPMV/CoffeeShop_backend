@@ -13,14 +13,14 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('orders', function (Blueprint $table) {
-            $table->id('order_id');  // order_id lesz az elsődleges kulcs
-            $table->unsignedBigInteger('user');  // Külső kulcs
+            $table->id('order_id');  
+            $table->unsignedBigInteger('user');  
             $table->datetime('date');
             $table->decimal('total_cost', 10, 2)->default(0);
             $table->string('order_status');
             $table->timestamps();
         
-            // Külső kulcs beállítása a 'user' oszlopra (users táblához)
+           
             $table->foreign('user')->references('id')->on('users')->onDelete('cascade');
             // $table->foreign('order_status')->references('id')->on('dictionaries')->onDelete('cascade');
 

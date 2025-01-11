@@ -25,10 +25,10 @@ class Content extends Model
         return $query;
     }
 
-    // Kapcsolat az OrderItem modellel (ha szükséges)
+    
     public function orderItem()
     {
-        return $this->belongsTo(OrderItem::class, 'cup_id', 'cup_id');  // Helyes kapcsolódás
+        return $this->belongsTo(OrderItem::class, 'cup_id', 'cup_id');  
     }
 
     
