@@ -28,6 +28,7 @@ class DatabaseSeeder extends Seeder
         Order::factory(40)->create();
         OrderItem::factory(60)->create();
         Content::factory(90)->create();
+        ProductRecipe::factory(10)->create();
         
 
         

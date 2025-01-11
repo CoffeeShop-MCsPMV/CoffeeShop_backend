@@ -35,9 +35,11 @@ class UserController extends Controller
     }
 
     public function usersByType(){
-        $users = User::orderBy('profil_type')
+        
+        $users = User::orderBy('profile_type')
     ->orderBy('name')
-    ->get(['name', 'email', 'profil_type']);
+    ->get(['name', 'email', 'profile_type']);
+   
 
     }
 
