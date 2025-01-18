@@ -59,7 +59,7 @@ class OrderController extends Controller
                 FROM 
                     orders
                 WHERE 
-                    YEAR(date) = YEAR(CURDATE()) //aktuális év adatai
+                    YEAR(date) = YEAR(CURDATE()) 
                 GROUP BY 
                     YEAR(date), MONTH(date)
                 ORDER BY 
@@ -71,23 +71,57 @@ class OrderController extends Controller
         return response()->json($income);
     }
 
+    // public function getOrdersByStatus(Request $request)
+    // {
+    //     $status = $request->query('status', 'Processing');
+
+    //     $validStatuses = ['Received', 'Processing', 'Ready', 'Released', 'Archive'];
+    //     if (!in_array($status, $validStatuses)) {
+    //         return response()->json(['error' => 'Not found status'], 400);
+    //     }
+
+    //     $orders = Order::where('order_status', $status)
+    //         ->orderBy('created_at', 'asc')
+    //         ->get(['order_number', 'user_id', 'total_price', 'order_status', 'created_at']);
+
+    //     if ($orders->isEmpty()) {
+    //         return response()->json(['message' => 'No orders found with status ' . $status], 404);
+    //     }
+
+    //     return response()->json($orders);
+    // }
+
     public function getOrdersByStatus(Request $request)
-    {
-        $status = $request->query('status', 'Processing');
-
-        $validStatuses = ['Received', 'Processing', 'Ready', 'Released', 'Archive'];
-        if (!in_array($status, $validStatuses)) {
-            return response()->json(['error' => 'Not found status'], 400);
-        }
-
-        $orders = Order::where('order_status', $status)
-            ->orderBy('created_at', 'asc')
-            ->get(['order_number', 'user_id', 'total_price', 'order_status', 'created_at']);
-
-        if ($orders->isEmpty()) {
-            return response()->json(['message' => 'No orders found with status ' . $status], 404);
-        }
-
-        return response()->json($orders);
+{
+    $status = $request->query('status', 'Processing');
+    $validStatuses = ['Received', 'Processing', 'Ready', 'Released', 'Archive'];
+    
+    if (!in_array($status, $validStatuses)) {
+        return response()->json(['error' => 'Not found status'], 400);
     }
+
+    $sql = "
+        SELECT 
+            order_number, 
+            user_id, 
+            total_price, 
+            order_status, 
+            created_at
+        FROM 
+            orders
+        WHERE 
+            order_status = :status
+        ORDER BY 
+            created_at ASC
+    ";
+
+    $orders = DB::select($sql, ['status' => $status]);
+
+    if (empty($orders)) {
+        return response()->json(['message' => 'No orders found with status ' . $status], 404);
+    }
+
+    return response()->json($orders);
+}
+
 }
