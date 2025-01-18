@@ -38,23 +38,23 @@ class ProductRecipeController extends Controller
 
     public function update(Request $request, $productId, $ingredientId)
     {
-        // Validálás
+        
         $request->validate([
             'quantity' => 'required|integer|min:1',
         ]);
     
-        // Megkeressük az adott rekordot a `product_recipes` táblában
+        
         $productRecipe = DB::table('product_recipes')
             ->where('product', $productId)
             ->where('ingredient', $ingredientId)
             ->first();
     
-        // Ellenőrzés, hogy létezik-e a rekord
+        
         if (!$productRecipe) {
             return response()->json(['message' => 'Record not found'], 404);
         }
     
-        // Frissítés
+        
         DB::table('product_recipes')
             ->where('product', $productId)
             ->where('ingredient', $ingredientId)
@@ -76,9 +76,9 @@ class ProductRecipeController extends Controller
     public function ingredientsOfProduct($productId)
 {
     $ingredients = DB::table('product_recipes')
-        ->join('products as p', 'product_recipes.ingredient', '=', 'p.product_id')  // Összekapcsolás a termékek összetevőivel
-        ->where('product_recipes.product', '=', $productId)  // A keresett termék ID-ja
-        ->select('p.name as ingredient_name', 'product_recipes.quantity')  // Az összetevő neve és mennyisége
+        ->join('products as p', 'product_recipes.ingredient', '=', 'p.product_id') 
+        ->where('product_recipes.product', '=', $productId) 
+        ->select('p.name as ingredient_name', 'product_recipes.quantity')  
         ->get();
 
     if ($ingredients->isEmpty()) {

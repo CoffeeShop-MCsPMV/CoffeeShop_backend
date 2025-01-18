@@ -17,12 +17,12 @@ class ProductController extends Controller
     {
         $validatedData = $request->validate([
             'name' => 'sometimes|string|max:40',
-            'src' => 'sometimes|nullable|string|max:255', // Az src mező opcionális és szöveg
-            'type' => 'sometimes|string|size:1', // Pontosan 1 karakter
-            'category' => 'sometimes|string|size:3', // Pontosan 3 karakter
-            'is_available' => 'sometimes|boolean', // true/false érték
-            'current_price' => 'sometimes|numeric|min:0', // Szám, nem negatív
-            'unit_ml' => 'sometimes|integer|min:0', // Egész szám, nem negatív
+            'src' => 'sometimes|nullable|string|max:255', 
+            'type' => 'sometimes|string|size:1', 
+            'category' => 'sometimes|string|size:3', 
+            'is_available' => 'sometimes|boolean',
+            'current_price' => 'sometimes|numeric|min:0', 
+            'unit_ml' => 'sometimes|integer|min:0',
         ]);
     
         $record = new Product();
