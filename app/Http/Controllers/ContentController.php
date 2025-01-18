@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Content;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ContentController extends Controller
 {
@@ -36,9 +37,25 @@ class ContentController extends Controller
 
     public function contentsOfCup()
     {
-        $content = Content::with('product', 'productRecipe') 
-            ->orderBy('cup_id')
-            ->get();
-            return response()->json($content);
+        $content = DB::select(
+            "
+           SELECT 
+                    contents.*,
+                    products.name AS product_name,
+                    products.type AS product_type,
+                    products.current_price AS product_price,
+                    product_recipes.ingredient,
+                    product_recipes.quantity
+                FROM 
+                    contents
+                LEFT JOIN 
+                    products ON contents.product_id = products.product_id
+                LEFT JOIN 
+                    product_recipes ON contents.product_id = product_recipes.product
+                ORDER BY 
+                    contents.cup_id;"
+        );
+
+        return response()->json($content);
     }
 }
