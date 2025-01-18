@@ -87,11 +87,11 @@ Route::middleware(['auth:sanctum', Admin::class])
         Route::get('/contents/top-products', [ContentController::class, 'topProducts']);
         //200OK nincs adat ???
         Route::get('/users/get-users', [UserController::class, 'getUsers']);
-        //200OK nincs adat
+        //200OK nincs adat ????
         Route::get('/products/by-type', [ProductController::class, 'getProductsByType']);
         //ok
         Route::get('/users/{id}/orders', [UserController::class, 'getUserOrders']);
-         //200 ok nincs adat
+         //200 ok nincs adat ????
         Route::get('/orders/by-status', [OrderController::class, 'getOrdersByStatus']);
         //200 ok nincs adat
         Route::get('/users/ready-orders', [UserController::class, 'getUsersWithReadyOrders']);
