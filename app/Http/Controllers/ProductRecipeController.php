@@ -37,15 +37,12 @@ class ProductRecipeController extends Controller
 
     public function update(Request $request, $product, $ingredient)
     {
-        $record = $this->show($product, $ingredient);
-
-        // $validatedData = $request->validate([
-        //     'quantity' => 'sometimes|integer|min:1',
-        // ]);
-
-        $record->fill($request->all());
-        $record->save();
+        $productRecipe = ProductRecipe::where('product', $product)
+        ->where('ingredient', $ingredient);
+        $productRecipe->fill($request->all());
+        $productRecipe->save();
     }
+
 
     public function destroy($product, $ingredient)
     {
