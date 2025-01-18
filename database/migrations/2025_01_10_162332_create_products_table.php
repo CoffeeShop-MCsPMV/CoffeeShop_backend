@@ -11,7 +11,7 @@ return new class extends Migration
         Schema::create('products', function (Blueprint $table) {
             $table->id('product_id')->startingValue(20000);
             $table->string('name', 40);
-            $table->string('Src')->nullable();
+            $table->string('src')->nullable();
             $table->char('type', 1);
             $table->char('category', 3);
             $table->boolean('is_available')->default(true);
@@ -19,7 +19,7 @@ return new class extends Migration
             $table->integer('unit_ml');
             $table->timestamps();
 
-            $table->foreign('category')->references('id')->on('dictionaries')->onDelete('cascade');
+            $table->foreign('category')->references('code')->on('dictionaries')->onDelete('cascade');
         });
     }
 

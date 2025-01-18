@@ -10,6 +10,7 @@ class Dictionary extends Model
     use HasFactory;
 
     protected $fillable = [
+        'code',
         'description',
         'reference'
     ];
