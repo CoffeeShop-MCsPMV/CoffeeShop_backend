@@ -75,10 +75,10 @@ Route::middleware(['auth:sanctum', Admin::class])
         Route::post('/product-recipes', [ProductRecipeController::class, 'store']);
         //ok
         Route::get('/product-recipes/{product}/{ingredient}', [ProductRecipeController::class, 'show']);
-        //???
+        //ok
         Route::put('/product-recipes/{product}/{ingredient}', [ProductRecipeController::class, 'update']);
-        //nem jó
-        Route::get('/product_recipes/ingredients-of-product', [ProductRecipeController::class, 'ingredientsOfProduct']);
+        //ok
+        Route::get('/product_recipes/ingredients-of-product/{productId}', [ProductRecipeController::class, 'ingredientsOfProduct']);
         //ok
         Route::get('/contents/contents-of-cup', [ContentController::class, 'contentsOfCup']);
         //200OK - nincs adat ???
