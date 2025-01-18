@@ -92,36 +92,39 @@ class OrderController extends Controller
     // }
 
     public function getOrdersByStatus(Request $request)
-{
-    $status = $request->query('status', 'Processing');
-    $validStatuses = ['Received', 'Processing', 'Ready', 'Released', 'Archive'];
+    {
+        $status = $request->query('status', 'Processing');
+        
+        $validStatuses = ['Received', 'Processing', 'Ready', 'Released', 'Archive'];
+        
+        if (!in_array($status, $validStatuses)) {
+            return response()->json(['error' => 'Not found status'], 400);
+        }
     
-    if (!in_array($status, $validStatuses)) {
-        return response()->json(['error' => 'Not found status'], 400);
+        $sql = "
+            SELECT 
+                orders.order_id,  
+                orders.user,  
+                orders.total_cost,  
+                dictionaries.code as order_status
+            FROM 
+                orders
+            JOIN 
+                dictionaries ON orders.order_status = dictionaries.description 
+            WHERE 
+                dictionaries.code = :status 
+            ORDER BY 
+                orders.created_at ASC
+        ";
+
+        $orders = DB::select($sql, ['status' => $status]);
+ 
+        if (empty($orders)) {
+            return response()->json(['message' => 'No orders found with status ' . $status], 404);
+        }
+
+        return response()->json($orders);
     }
-
-    $sql = "
-        SELECT 
-            order_number, 
-            user_id, 
-            total_price, 
-            order_status, 
-            created_at
-        FROM 
-            orders
-        WHERE 
-            order_status = :status
-        ORDER BY 
-            created_at ASC
-    ";
-
-    $orders = DB::select($sql, ['status' => $status]);
-
-    if (empty($orders)) {
-        return response()->json(['message' => 'No orders found with status ' . $status], 404);
-    }
-
-    return response()->json($orders);
-}
+    
 
 }

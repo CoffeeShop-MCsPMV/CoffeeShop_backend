@@ -10,7 +10,7 @@ class DictionaryFactory extends Factory
     {
         return [
             'code' => $this->faker->unique()->lexify('???'),
-            'description' => $this->faker->word,
+            'description' => $this->faker->randomElement(['Received', 'Processing', 'Released']),
             'reference' => $this->faker->randomElement(['A', 'B', 'C'])
         ];
     }

@@ -130,15 +130,18 @@ class UserController extends Controller
     //     return response()->json(['message' => 'No purchases found.']);
     // }
 
-    public function usersByType()
+    public function getUsers()
     {
-        $sql = "
-        SELECT name, email, profile_type
+        $users = DB::select(
+            "
+          SELECT name, email, profile_type
         FROM users
-        ORDER BY profile_type, name
-    ";
+        WHERE profile_type = 'U'"
+        );
 
-        $users = DB::select($sql);
+        if (empty($users)) {
+            return response()->json(['message' => 'No users found with profile type U.'], 404);
+        }
 
         return response()->json($users);
     }
@@ -146,23 +149,22 @@ class UserController extends Controller
     public function getUserOrders($userId)
     {
         $sql = "
-        SELECT order_number, total_price, status, created_at
+        SELECT order_id, total_cost, order_status
         FROM orders
-        WHERE user_id = :userId
-        ORDER BY created_at DESC
-    ";
-
+        WHERE user = :userId
+        ";
+    
         $orders = DB::select($sql, ['userId' => $userId]);
-
+    
         if (empty($orders)) {
-            return response()->json(['error' => 'User not find'], 404);
+            return response()->json(['error' => 'User not found'], 404);
         }
-
+    
         return response()->json([
-            'user' => $orders[0]->name,
             'orders' => $orders
         ]);
     }
+    
 
     public function countUserOrders()
     {
@@ -175,10 +177,10 @@ class UserController extends Controller
         $sql = "
         SELECT COUNT(*) AS order_count
         FROM orders
-        WHERE user_id = :userId
+        WHERE user = :userId
     ";
 
-        $count = DB::selectOne($sql, ['userId' => $user->id]);
+        $count = DB::selectOne($sql, ['userId' => $user->user]);
 
         return response()->json([
             'order_count' => $count->order_count
@@ -212,30 +214,24 @@ class UserController extends Controller
         return response()->json($users);
     }
 
+
     public function getMostPurchasedProduct()
     {
-        $user = Auth::user();
-
-        $sql = "
-        SELECT products.id, products.name, COUNT(order_items.id) AS product_count
+        $mostPurchasedProduct = DB::select(
+            "
+          SELECT products.product_id, products.name, COUNT(order_items.cup_id) AS product_count
         FROM orders
         JOIN order_items ON orders.order_id = order_items.order_id
         JOIN contents ON order_items.cup_id = contents.cup_id
-        JOIN products ON contents.product_id = products.id
-        WHERE orders.user_id = :userId
-        GROUP BY products.id
+        JOIN products ON contents.product_id = products.product_id
+        WHERE orders.user = :userId
+        GROUP BY products.product_id
         ORDER BY product_count DESC
-        LIMIT 1
-    ";
-
-        $mostPurchasedProduct = DB::selectOne($sql, ['userId' => $user->id]);
+        LIMIT 1;"
+        );
 
         if ($mostPurchasedProduct) {
-            return response()->json([
-                'product_id' => $mostPurchasedProduct->id,
-                'product_name' => $mostPurchasedProduct->name,
-                'purchases_count' => $mostPurchasedProduct->product_count,
-            ]);
+            return response()->json($mostPurchasedProduct);
         }
 
         return response()->json(['message' => 'No purchases found.']);
