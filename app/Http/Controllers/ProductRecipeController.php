@@ -39,11 +39,11 @@ class ProductRecipeController extends Controller
     {
         $record = $this->show($product, $ingredient);
 
-        $validatedData = $request->validate([
-            'quantity' => 'sometimes|integer|min:1',
-        ]);
+        // $validatedData = $request->validate([
+        //     'quantity' => 'sometimes|integer|min:1',
+        // ]);
 
-        $record->fill($validatedData);
+        $record->fill($request->all());
         $record->save();
     }
 

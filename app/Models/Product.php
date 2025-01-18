@@ -15,7 +15,7 @@ class Product extends Model
         'name',
         'src',
         'type',
-        'chategory',
+        'category',
         'is_available',
         'current_price',
         'unit_ml',

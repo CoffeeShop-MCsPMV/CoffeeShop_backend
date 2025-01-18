@@ -61,15 +61,15 @@ Route::middleware(['auth:sanctum', Admin::class])
         Route::get('/orders/{order_id}', [OrderController::class, 'show']);
         //ok
         Route::put('/orders/{order_id}', [OrderController::class, 'update']);
-        //????
+        //ok
         Route::post('/products', [ProductController::class, 'store']);
         //ok
         Route::get('/products/{id}', [ProductController::class, 'show']);
         //ok
         Route::put('/products/{id}', [ProductController::class, 'update']);
-        //controllert írd meg
+        //ok
         Route::get('/dictionaries', [DictionaryController::class, 'index']);
-        //controllert írd meg
+        //ok
         Route::post('/dictionaries', [DictionaryController::class, 'store']);
         //ok
         Route::post('/product-recipes', [ProductRecipeController::class, 'store']);
