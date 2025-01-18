@@ -64,67 +64,28 @@ class OrderController extends Controller
                     YEAR(date), MONTH(date)
                 ORDER BY 
                     MONTH(date);
-
            "
         );
 
         return response()->json($income);
     }
 
-    // public function getOrdersByStatus(Request $request)
-    // {
-    //     $status = $request->query('status', 'Processing');
-
-    //     $validStatuses = ['Received', 'Processing', 'Ready', 'Released', 'Archive'];
-    //     if (!in_array($status, $validStatuses)) {
-    //         return response()->json(['error' => 'Not found status'], 400);
-    //     }
-
-    //     $orders = Order::where('order_status', $status)
-    //         ->orderBy('created_at', 'asc')
-    //         ->get(['order_number', 'user_id', 'total_price', 'order_status', 'created_at']);
-
-    //     if ($orders->isEmpty()) {
-    //         return response()->json(['message' => 'No orders found with status ' . $status], 404);
-    //     }
-
-    //     return response()->json($orders);
-    // }
-
-    public function getOrdersByStatus(Request $request)
+       public function getOrdersByStatus(Request $request)
     {
-        $status = $request->query('status', 'Processing');
-        
-        $validStatuses = ['Received', 'Processing', 'Ready', 'Released', 'Archive'];
-        
-        if (!in_array($status, $validStatuses)) {
-            return response()->json(['error' => 'Not found status'], 400);
-        }
-    
-        $sql = "
-            SELECT 
-                orders.order_id,  
-                orders.user,  
-                orders.total_cost,  
-                dictionaries.code as order_status
-            FROM 
-                orders
-            JOIN 
-                dictionaries ON orders.order_status = dictionaries.description 
-            WHERE 
-                dictionaries.code = :status 
-            ORDER BY 
-                orders.created_at ASC
-        ";
+        $status = $request->input('status'); 
 
-        $orders = DB::select($sql, ['status' => $status]);
- 
-        if (empty($orders)) {
-            return response()->json(['message' => 'No orders found with status ' . $status], 404);
+        if (!$status) {
+            return response()->json(['error' => 'Status parameter is required'], 400);
         }
 
-        return response()->json($orders);
-    }
-    
+        $results = DB::table('orders')
+            ->join('dictionaries', 'orders.order_status', '=', 'dictionaries.code')
+            ->select('orders.order_id', 'orders.user', 'orders.total_cost', 'dictionaries.code as order_status')
+            ->where('dictionaries.code', '=', $status)
+            ->orderBy('orders.created_at', 'asc')
+            ->get();
 
+        return $results; 
+
+}
 }

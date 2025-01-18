@@ -41,106 +41,21 @@ class UserController extends Controller
         User::find($id)->delete();
     }
 
-    //     public function usersByType(){
-
-    //         $users = User::orderBy('profile_type')
-    //     ->orderBy('name')
-    //     ->get(['name', 'email', 'profile_type']);
-
-
-    //     }
-
-
-    //     public function getUserOrders($userId)
-    // {
-    //     $user = User::find($userId);
-
-    //     if (!$user) {
-    //         return response()->json(['error' => 'User not find'], 404);
-    //     }
-
-    //     $orders = $user->userToOrders()
-    //         ->orderBy('created_at', 'desc') 
-    //         ->get(['order_number', 'total_price', 'status', 'created_at']);
-
-    //     return response()->json([
-    //         'user' => $user->name,
-    //         'orders' => $orders
-    //     ]);
-    // }
-
-    // public function countUserOrders()
-    // {
-    //     $user = Auth::user();
-
-    //     if (!$user) {
-    //         return response()->json(['message' => 'User not authenticated'], 401);
-    //     }
-
-    //     $orderCount = Order::where('user_id', $user->id)->count();
-
-    //     return response()->json([
-    //         'order_count' => $orderCount
-    //     ], 200);
-    // }
-
-    // public function getUsersWithReadyOrders()
-    // {
-    //     $users = User::whereHas('orders', function ($query) {
-    //         $query->where('status', 'Ready');
-    //     })
-    //     ->with(['orders' => function ($query) {
-    //         $query->where('status', 'Ready');
-    //     }]) 
-    //     ->get([ 'name', 'order_id']); 
-
-    //     return response()->json($users);
-    // }
-
-    // public function suscribedUsers(){
-
-    //     return response()->json(User::where('is_subscribed', 1)->get());
-    // }
-
-    // public function getMostPurchasedProduct()
-    // {
-    //     $user = Auth::user();
-
-    //     $mostPurchasedProduct = Order::where('user_id', $user->id) 
-    //         ->whereHas('items.content.product') 
-    //         ->withCount(['items as product_count' => function ($query) {
-    //             $query->selectRaw('count(*)'); 
-    //         }])
-    //         ->join('order_items', 'orders.order_id', '=', 'order_items.order_id') 
-    //         ->join('contents', 'order_items.cup_id', '=', 'contents.cup_id') 
-    //         ->join('products', 'contents.product_id', '=', 'products.id') 
-    //         ->groupBy('products.id')
-    //         ->orderByDesc('product_count') 
-    //         ->limit(1) 
-    //         ->select('products.id', 'products.name', 'product_count')
-    //         ->first();
-
-    //     if ($mostPurchasedProduct) {
-    //         return response()->json([
-    //             'product_id' => $mostPurchasedProduct->id,
-    //             'product_name' => $mostPurchasedProduct->name,
-    //             'purchases_count' => $mostPurchasedProduct->product_count,
-    //         ]);
-    //     }
-    //     return response()->json(['message' => 'No purchases found.']);
-    // }
-
-    public function getUsers()
+    public function usersByType(Request $request)
     {
-        $users = DB::select(
-            "
-          SELECT name, email, profile_type
-        FROM users
-        WHERE profile_type = 'U'"
-        );
+        $profileType = $request->input('profile_type'); 
 
-        if (empty($users)) {
-            return response()->json(['message' => 'No users found with profile type U.'], 404);
+        if (!$profileType) {
+            return response()->json(['message' => 'Profile type parameter is required.'], 400);
+        }
+
+        $users = DB::table('users')
+            ->select('name', 'email', 'profile_type')
+            ->where('profile_type', '=', $profileType)
+            ->get();
+
+        if ($users->isEmpty()) {
+            return response()->json(['message' => 'No users found with the specified profile type.'], 404);
         }
 
         return response()->json($users);
@@ -153,18 +68,18 @@ class UserController extends Controller
         FROM orders
         WHERE user = :userId
         ";
-    
+
         $orders = DB::select($sql, ['userId' => $userId]);
-    
+
         if (empty($orders)) {
             return response()->json(['error' => 'User not found'], 404);
         }
-    
+
         return response()->json([
             'orders' => $orders
         ]);
     }
-    
+
 
     public function countUserOrders()
     {
@@ -190,7 +105,7 @@ class UserController extends Controller
     public function getUsersWithReadyOrders()
     {
         $users = DB::select(
-        "
+            "
         SELECT *
         FROM users
         JOIN orders ON users.id = orders.user
