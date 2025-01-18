@@ -18,6 +18,7 @@ return new class extends Migration
             $table->timestamps();
                    
             $table->foreign('user')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('order_status')->references('id')->on('dictionaries')->onDelete('cascade');
         });
     }
 

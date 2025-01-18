@@ -11,6 +11,7 @@ class Dictionary extends Model
 
     protected $fillable = [
         'description',
+        'reference'
     ];
 
     protected $casts = [
