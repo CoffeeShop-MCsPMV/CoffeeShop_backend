@@ -92,36 +92,47 @@ class OrderController extends Controller
     // }
 
     public function getOrdersByStatus(Request $request)
-{
-    $status = $request->query('status', 'Processing');
-    $validStatuses = ['Received', 'Processing', 'Ready', 'Released', 'Archive'];
+    {
+        // Alapértelmezett státusz: 'Processing', ha nem adtak meg státuszt a kérésben
+        $status = $request->query('status', 'Processing');
+        
+        // Engedélyezett státuszok listája
+        $validStatuses = ['Received', 'Processing', 'Ready', 'Released', 'Archive'];
+        
+        // Ellenőrizzük, hogy a kapott státusz érvényes-e
+        if (!in_array($status, $validStatuses)) {
+            return response()->json(['error' => 'Not found status'], 400);
+        }
     
-    if (!in_array($status, $validStatuses)) {
-        return response()->json(['error' => 'Not found status'], 400);
+        // SQL lekérdezés a megfelelő státuszú rendelések lekéréséhez, JOIN-tal a dictionaries táblával
+        $sql = "
+            SELECT 
+                orders.order_id,  -- Az orders táblában 'order_id' van
+                orders.user,  -- A 'user' oszlop tárolja a felhasználó azonosítóját
+                orders.total_cost,  -- A 'total_cost' oszlop tárolja az összköltséget
+                dictionaries.code as order_status,  -- A státuszt a dictionaries táblából kérdezzük le
+                orders.created_at  -- A rendelés létrehozásának ideje
+            FROM 
+                orders
+            JOIN 
+                dictionaries ON orders.order_status = dictionaries.code  -- Kapcsolás a dictionaries táblával
+            WHERE 
+                dictionaries.code = :status  -- A státusz a dictionaries táblában található
+            ORDER BY 
+                orders.created_at ASC
+        ";
+    
+        // Lekérdezzük az adatokat az adott státusz alapján
+        $orders = DB::select($sql, ['status' => $status]);
+    
+        // Ha nincsenek rendeléshez tartozó adatok, üzenet küldése
+        if (empty($orders)) {
+            return response()->json(['message' => 'No orders found with status ' . $status], 404);
+        }
+    
+        // Válasz visszaküldése
+        return response()->json($orders);
     }
-
-    $sql = "
-        SELECT 
-            order_number, 
-            user_id, 
-            total_price, 
-            order_status, 
-            created_at
-        FROM 
-            orders
-        WHERE 
-            order_status = :status
-        ORDER BY 
-            created_at ASC
-    ";
-
-    $orders = DB::select($sql, ['status' => $status]);
-
-    if (empty($orders)) {
-        return response()->json(['message' => 'No orders found with status ' . $status], 404);
-    }
-
-    return response()->json($orders);
-}
+    
 
 }
