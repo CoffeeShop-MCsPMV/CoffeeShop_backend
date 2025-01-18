@@ -50,16 +50,25 @@ class OrderController extends Controller
 
     public function monthlyIncome()
     {
-        $bevetel = Order::select(
-            DB::raw('YEAR(dátum) as ev'),
-            DB::raw('MONTH(dátum) as honap'),
-            DB::raw('SUM(végösszeg) as havi_bevetel')
-        )
-            ->whereYear('dátum', now()->year)
-            ->groupBy(DB::raw('YEAR(dátum), MONTH(dátum)'))
-            ->orderBy(DB::raw('MONTH(dátum)'))
-            ->get();
-        return response()->json($bevetel);
+        $income = DB::select(
+            "
+            SELECT 
+                    YEAR(date) AS ev,
+                    MONTH(date) AS honap,
+                    SUM(total_cost) AS havi_bevetel
+                FROM 
+                    orders
+                WHERE 
+                    YEAR(date) = YEAR(CURDATE()) //aktuális év adatai
+                GROUP BY 
+                    YEAR(date), MONTH(date)
+                ORDER BY 
+                    MONTH(date);
+
+           "
+        );
+
+        return response()->json($income);
     }
 
     public function getOrdersByStatus(Request $request)

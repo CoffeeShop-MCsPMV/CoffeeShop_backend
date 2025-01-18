@@ -49,16 +49,24 @@ class OrderItemController extends Controller
     }
 
     public function topProducts()
-    {
-        $topItems = Content::select('product_id', DB::raw('COUNT(*) as total_count'))
-            ->whereHas('product', function ($query) {
-                $query->where('jelleg', 'T');
-            })
-            ->groupBy('product_id')
-            ->orderByDesc('total_count')
-            ->with('product')
-            ->take(3)
-            ->get();
-            return response()->json($topItems);
-    }
+{
+    $topItems = DB::select("
+        SELECT 
+            contents.product_id, 
+            COUNT(*) AS total_count
+        FROM 
+            contents
+        JOIN 
+            products ON contents.product_id = products.product_id
+        WHERE 
+            products.type = 'T'
+        GROUP BY 
+            contents.product_id
+        ORDER BY 
+            total_count DESC
+        LIMIT 3
+    ");
+    return response()->json($topItems);
+}
+
 }

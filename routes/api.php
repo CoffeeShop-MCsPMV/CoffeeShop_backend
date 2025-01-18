@@ -53,6 +53,7 @@ Route::middleware(['auth:sanctum', Admin::class])
         Route::get('/product-recipes/{product}/{ingredient}', [ProductRecipeController::class, 'show']);
         Route::put('/product-recipes/{product}/{ingredient}', [ProductRecipeController::class, 'update']);
         Route::get('/product_recipes/ingredients-of-product', [ProductRecipeController::class, 'ingredientsOfProduct']);
+        //ok
         Route::get('/contents/contents-of-cup', [ContentController::class, 'contentsOfCup']);
         Route::get('/orders/monthly-income', [OrderController::class, 'monthlyIncome']);
         Route::get('/contents/top-products', [ContentController::class, 'topProducts']);
