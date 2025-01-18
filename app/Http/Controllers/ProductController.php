@@ -56,15 +56,40 @@ class ProductController extends Controller
         $product->delete();
     }
 
-    public function getProductsByType($type)
-    {
-        if (!in_array($type, ['I', 'F'])) {
-            return response()->json(['error' => 'Type is not find'], 400);
-        }
+    // public function getProductsByType($type)
+    // {
+    //     if (!in_array($type, ['I', 'F'])) {
+    //         return response()->json(['error' => 'Type is not find'], 400);
+    //     }
 
-        $products = Product::where('type', $type)
-            ->orderBy('product_name')
-            ->get(['product_name', 'current_price', 'chategory', 'is_available']);
-        return response()->json($products, 200);
+    //     $products = Product::where('type', $type)
+    //         ->orderBy('product_name')
+    //         ->get(['product_name', 'current_price', 'chategory', 'is_available']);
+    //     return response()->json($products, 200);
+    // }
+
+    public function getProductsByType($type)
+{
+    if (!in_array($type, ['I', 'F'])) {
+        return response()->json(['error' => 'Type is not find'], 400);
     }
+
+    $sql = "
+        SELECT 
+            product_name, 
+            current_price, 
+            chategory, 
+            is_available
+        FROM 
+            products
+        WHERE 
+            type = :type
+        ORDER BY 
+            product_name ASC
+    ";
+
+    $products = DB::select($sql, ['type' => $type]);
+
+    return response()->json($products, 200);
+}
 }
