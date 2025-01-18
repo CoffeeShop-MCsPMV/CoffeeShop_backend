@@ -9,8 +9,9 @@ return new class extends Migration
     public function up()
     {
         Schema::create('products', function (Blueprint $table) {
-            $table->id('product_id')->startingValue(20000);;
+            $table->id('product_id')->startingValue(20000);
             $table->string('name', 40);
+            $table->string('Src')->nullable();
             $table->char('type', 1);
             $table->char('category', 3);
             $table->boolean('is_available')->default(true);
