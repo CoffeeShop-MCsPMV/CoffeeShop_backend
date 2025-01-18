@@ -93,7 +93,7 @@ Route::middleware(['auth:sanctum', Admin::class])
         Route::get('/users/{id}/orders', [UserController::class, 'getUserOrders']);
          //200 ok nincs adat ????
         Route::get('/orders/by-status', [OrderController::class, 'getOrdersByStatus']);
-        //200 ok nincs adat
+        //200 ok nincs adat ????
         Route::get('/users/ready-orders', [UserController::class, 'getUsersWithReadyOrders']);
          //200 ok nincs adat
         Route::get('/users/subscribed', [UserController::class, 'suscribedUsers']);

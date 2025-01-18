@@ -189,14 +189,14 @@ class UserController extends Controller
 
     public function getUsersWithReadyOrders()
     {
-        $sql = "
-        SELECT users.name, orders.order_id
+        $users = DB::select(
+        "
+        SELECT *
         FROM users
-        JOIN orders ON users.id = orders.user_id
-        WHERE orders.status = 'Ready'
-    ";
-
-        $users = DB::select($sql);
+        JOIN orders ON users.id = orders.user
+        WHERE orders.status = 'exg'
+        "
+        );
 
         return response()->json($users);
     }
@@ -206,8 +206,7 @@ class UserController extends Controller
         $sql = "
         SELECT *
         FROM users
-        WHERE is_subscribed = 1
-    ";
+        WHERE is_subscribed = 1";
 
         $users = DB::select($sql);
 
