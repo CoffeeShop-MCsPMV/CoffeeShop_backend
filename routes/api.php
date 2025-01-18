@@ -55,7 +55,9 @@ Route::middleware(['auth:sanctum', Admin::class])
         Route::get('/product_recipes/ingredients-of-product', [ProductRecipeController::class, 'ingredientsOfProduct']);
         //ok
         Route::get('/contents/contents-of-cup', [ContentController::class, 'contentsOfCup']);
+        //200OK - nincs adat
         Route::get('/orders/monthly-income', [OrderController::class, 'monthlyIncome']);
+        //ok
         Route::get('/contents/top-products', [ContentController::class, 'topProducts']);
         Route::get('/users/by-type', [UserController::class, 'usersByType']);
         Route::get('/products/by-type', [ProductController::class, 'getProductsByType']);
