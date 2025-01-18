@@ -18,6 +18,8 @@ return new class extends Migration
             $table->decimal('current_price');
             $table->integer('unit_ml');
             $table->timestamps();
+
+            $table->foreign('category')->references('id')->on('dictionaries')->onDelete('cascade');
         });
     }
 
