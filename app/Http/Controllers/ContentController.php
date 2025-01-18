@@ -58,4 +58,25 @@ class ContentController extends Controller
 
         return response()->json($content);
     }
+
+    public function topProducts()
+    {
+        $topItems = DB::select("
+            SELECT 
+                contents.product_id, 
+                COUNT(*) AS total_count
+            FROM 
+                contents
+            JOIN 
+                products ON contents.product_id = products.product_id
+            WHERE 
+                products.type = 'T'
+            GROUP BY 
+                contents.product_id
+            ORDER BY 
+                total_count DESC
+            LIMIT 3
+        ");
+        return response()->json($topItems);
+    }
 }
