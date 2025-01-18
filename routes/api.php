@@ -23,35 +23,61 @@ Route::post('/login', [AuthenticatedSessionController::class, 'store']);
 
 Route::middleware(['auth:sanctum'])
     ->group(function () {
+        //ok
         Route::get('/users/{id}', [UserController::class, 'show']);
+        //ok
         Route::put('/users/{id}', [UserController::class, 'update']);
+        //ok
         Route::post('/orders', [OrderController::class, 'store']);
+        //ok
         Route::get('/products', [ProductController::class, 'index']);
+        //ok
         Route::get('/contents/{cup_id}/{product_id}', [ContentController::class, 'show']);
+        //ok
         Route::post('/contents', [ContentController::class, 'store']);
+        //ok
         Route::post('/order_items', [OrderItemController::class, 'store']);
+        //ok
         Route::get('/order_items', [OrderItemController::class, 'index']);
+        //ok
         Route::post('/logout', [AuthenticatedSessionController::class, 'destroy']);
+        //200OK - nincs adat
         Route::get('/users/most-purchased-product', [UserController::class, 'getMostPurchasedProduct']);
+        //200OK - nincs adat
         Route::get('/users/order-count', [UserController::class, 'countUserOrders']);
     });
 
 Route::middleware(['auth:sanctum', Admin::class])
     ->group(function () {
+        //ok
         Route::get('/users', [UserController::class, 'index']);
+        //ok
         Route::get('/orders', [OrderController::class, 'index']);
+        //ok
         Route::post('/users', [UserController::class, 'store']);
+        //ok
         Route::delete('/users/{id}', [UserController::class, 'destroy']);
+        //ok
         Route::get('/orders/{order_id}', [OrderController::class, 'show']);
+        //ok
         Route::put('/orders/{order_id}', [OrderController::class, 'update']);
+        //????
         Route::post('/products', [ProductController::class, 'store']);
+        //ok
         Route::get('/products/{id}', [ProductController::class, 'show']);
+        //ok
         Route::put('/products/{id}', [ProductController::class, 'update']);
+        //controllert írd meg
         Route::get('/dictionaries', [DictionaryController::class, 'index']);
+        //controllert írd meg
         Route::post('/dictionaries', [DictionaryController::class, 'store']);
+        //ok
         Route::post('/product-recipes', [ProductRecipeController::class, 'store']);
+        //ok
         Route::get('/product-recipes/{product}/{ingredient}', [ProductRecipeController::class, 'show']);
+        //???
         Route::put('/product-recipes/{product}/{ingredient}', [ProductRecipeController::class, 'update']);
+        //nem jó
         Route::get('/product_recipes/ingredients-of-product', [ProductRecipeController::class, 'ingredientsOfProduct']);
         //ok
         Route::get('/contents/contents-of-cup', [ContentController::class, 'contentsOfCup']);
@@ -59,10 +85,16 @@ Route::middleware(['auth:sanctum', Admin::class])
         Route::get('/orders/monthly-income', [OrderController::class, 'monthlyIncome']);
         //ok
         Route::get('/contents/top-products', [ContentController::class, 'topProducts']);
+        //200OK nincs adat
         Route::get('/users/by-type', [UserController::class, 'usersByType']);
+        //200 ok nincs adat
         Route::get('/products/by-type', [ProductController::class, 'getProductsByType']);
+        //nem jó
         Route::get('/users/{id}/orders', [UserController::class, 'getUserOrders']);
+         //200 ok nincs adat
         Route::get('/orders/by-status', [OrderController::class, 'getOrdersByStatus']);
+        //200 ok nincs adat
         Route::get('/users/ready-orders', [UserController::class, 'getUsersWithReadyOrders']);
+         //200 ok nincs adat
         Route::get('/users/subscribed', [UserController::class, 'suscribedUsers']);
     });
