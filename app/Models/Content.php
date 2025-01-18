@@ -36,6 +36,6 @@ class Content extends Model
 
     public function productRecipe()
     {
-        return $this->belongsTo(ProductRecipe::class, 'product_id', 'material');
+        return $this->belongsTo(ProductRecipe::class, 'product_id', 'ingredient');
     }
 }

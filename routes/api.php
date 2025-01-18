@@ -45,6 +45,7 @@ Route::middleware(['auth:sanctum', Admin::class])
         Route::get('/orders/{order_id}', [OrderController::class, 'show']);
         Route::put('/orders/{order_id}', [OrderController::class, 'update']);
         Route::post('/products', [ProductController::class, 'store']);
+        Route::get('/products/{id}', [ProductController::class, 'show']);
         Route::put('/products/{id}', [ProductController::class, 'update']);
         Route::get('/dictionaries', [DictionaryController::class, 'index']);
         Route::post('/dictionaries', [DictionaryController::class, 'store']);
