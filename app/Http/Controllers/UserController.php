@@ -129,25 +129,40 @@ class UserController extends Controller
     }
 
 
+    
     public function getMostPurchasedProduct()
-    {
-        $mostPurchasedProduct = DB::select(
-            "
-          SELECT products.product_id, products.name, COUNT(order_items.cup_id) AS product_count
-        FROM orders
-        JOIN order_items ON orders.order_id = order_items.order_id
-        JOIN contents ON order_items.cup_id = contents.cup_id
-        JOIN products ON contents.product_id = products.product_id
-        WHERE orders.user = :userId
-        GROUP BY products.product_id
-        ORDER BY product_count DESC
-        LIMIT 1;"
-        );
+{
+    $user = Auth::user();
 
-        if ($mostPurchasedProduct) {
-            return response()->json($mostPurchasedProduct);
-        }
-
-        return response()->json(['message' => 'No purchases found.']);
+    if (!$user) {
+        return response()->json(['message' => 'User not authenticated.'], 401);
     }
+
+    // A felhasználó ID-ja
+    $userId = $user->id;
+
+    $mostPurchasedProduct = DB::table('orders')
+        ->join('order_items', 'orders.order_id', '=', 'order_items.order_id')
+        ->join('contents', 'order_items.cup_id', '=', 'contents.cup_id')
+        ->join('products', 'contents.product_id', '=', 'products.product_id')
+        ->select(
+            'products.product_id',
+            'products.name',
+            DB::raw('COUNT(order_items.cup_id) AS product_count')
+        )
+        ->where('orders.user', $userId) // Használjuk a $userId-t, nem az egész objektumot
+        ->groupBy('products.product_id', 'products.name') 
+        ->orderBy('product_count', 'DESC')
+        ->limit(1)
+        ->first(); 
+
+    if ($mostPurchasedProduct) {
+        return response()->json($mostPurchasedProduct);
+    }
+
+    return response()->json(['message' => 'No purchases found.']);
 }
+
+        
+    }
+
