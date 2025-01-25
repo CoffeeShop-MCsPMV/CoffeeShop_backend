@@ -18,101 +18,46 @@ use Illuminate\Support\Facades\Route;
 // Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
 //     return $request->user();
 // });
+Route::post('/register', [RegisteredUserController::class, 'store']);
+Route::post('/login', [AuthenticatedSessionController::class, 'store']);
 
-Route::middleware(['auth:sanctum'])->group( function () {
+Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/users/order-count', [UserController::class, 'countUserOrders']);
     Route::get('/users/most-purchased-product', [UserController::class, 'getMostPurchasedProduct']);
+    Route::get('/users/{id}', [UserController::class, 'show']);
+    Route::put('/users/{id}', [UserController::class, 'update']);
+    Route::post('/orders', [OrderController::class, 'store']);
+    Route::get('/products', [ProductController::class, 'index']);
+    Route::get('/contents/{cup_id}/{product_id}', [ContentController::class, 'show']);
+    Route::post('/contents', [ContentController::class, 'store']);
+    Route::post('/order_items', [OrderItemController::class, 'store']);
+    Route::get('/order_items', [OrderItemController::class, 'index']);
+    Route::post('/logout', [AuthenticatedSessionController::class, 'destroy']);
 });
 
-Route::middleware(['auth:sanctum', Admin::class])->group( function () {
+Route::middleware(['auth:sanctum', Admin::class])->group(function () {
     Route::get('/orders/monthly-income', [OrderController::class, 'monthlyIncome']);
     Route::get('/users/by-type', [UserController::class, 'usersByType']);
     Route::get('/products/by-type', [ProductController::class, 'getProductsByType']);
     Route::get('/orders/by-status', [OrderController::class, 'getOrdersByStatus']);
     Route::get('/users/ready-orders', [UserController::class, 'getUsersWithReadyOrders']);
     Route::get('/users/subscribed', [UserController::class, 'suscribedUsers']);
-   
+    Route::get('/users', [UserController::class, 'index']);
+    Route::get('/orders', [OrderController::class, 'index']);
+    Route::post('/users', [UserController::class, 'store']);
+    Route::delete('/users/{id}', [UserController::class, 'destroy']);
+    Route::get('/orders/{order_id}', [OrderController::class, 'show']);
+    Route::put('/orders/{order_id}', [OrderController::class, 'update']);
+    Route::post('/products', [ProductController::class, 'store']);
+    Route::get('/products/{id}', [ProductController::class, 'show']);
+    Route::put('/products/{id}', [ProductController::class, 'update']);
+    Route::get('/dictionaries', [DictionaryController::class, 'index']);
+    Route::post('/dictionaries', [DictionaryController::class, 'store']);
+    Route::post('/product-recipes', [ProductRecipeController::class, 'store']);
+    Route::get('/product-recipes/{product}/{ingredient}', [ProductRecipeController::class, 'show']);
+    Route::put('/product-recipes/{product}/{ingredient}', [ProductRecipeController::class, 'update']);
+    Route::get('/product_recipes/ingredients-of-product/{productId}', [ProductRecipeController::class, 'ingredientsOfProduct']);
+    Route::get('/contents/contents-of-cup', [ContentController::class, 'contentsOfCup']);
+    Route::get('/contents/top-products', [ContentController::class, 'topProducts']);
+    Route::get('/users/{id}/orders', [UserController::class, 'getUserOrders']);
 });
-
-
-
-Route::post('/register', [RegisteredUserController::class, 'store']);
-Route::post('/login', [AuthenticatedSessionController::class, 'store']);
-
-Route::middleware(['auth:sanctum'])
-    ->group(function () {
-        //ok
-        Route::get('/users/{id}', [UserController::class, 'show']);
-        //ok
-        Route::put('/users/{id}', [UserController::class, 'update']);
-        //ok
-        Route::post('/orders', [OrderController::class, 'store']);
-        //ok
-        Route::get('/products', [ProductController::class, 'index']);
-        //ok
-        Route::get('/contents/{cup_id}/{product_id}', [ContentController::class, 'show']);
-        //ok
-        Route::post('/contents', [ContentController::class, 'store']);
-        //ok
-        Route::post('/order_items', [OrderItemController::class, 'store']);
-        //ok
-        Route::get('/order_items', [OrderItemController::class, 'index']);
-        //ok
-        Route::post('/logout', [AuthenticatedSessionController::class, 'destroy']);
-        //200OK - nincs adat
-        // Route::get('/users/most-purchased-product', [UserController::class, 'getMostPurchasedProduct']);
-        // //200OK - nincs adat
-        // Route::get('/users/order-count', [UserController::class, 'countUserOrders']);
-    });
-
-Route::middleware(['auth:sanctum', Admin::class])
-    ->group(function () {
-        //ok
-        Route::get('/users', [UserController::class, 'index']);
-        //ok
-        Route::get('/orders', [OrderController::class, 'index']);
-        //ok
-        Route::post('/users', [UserController::class, 'store']);
-        //ok
-        Route::delete('/users/{id}', [UserController::class, 'destroy']);
-        //ok
-        Route::get('/orders/{order_id}', [OrderController::class, 'show']);
-        //ok
-        Route::put('/orders/{order_id}', [OrderController::class, 'update']);
-        //ok
-        Route::post('/products', [ProductController::class, 'store']);
-        //ok
-        Route::get('/products/{id}', [ProductController::class, 'show']);
-        //ok
-        Route::put('/products/{id}', [ProductController::class, 'update']);
-        //ok
-        Route::get('/dictionaries', [DictionaryController::class, 'index']);
-        //ok
-        Route::post('/dictionaries', [DictionaryController::class, 'store']);
-        //ok
-        Route::post('/product-recipes', [ProductRecipeController::class, 'store']);
-        //ok
-        Route::get('/product-recipes/{product}/{ingredient}', [ProductRecipeController::class, 'show']);
-        //ok
-        Route::put('/product-recipes/{product}/{ingredient}', [ProductRecipeController::class, 'update']);
-        //ok
-        Route::get('/product_recipes/ingredients-of-product/{productId}', [ProductRecipeController::class, 'ingredientsOfProduct']);
-        //ok
-        Route::get('/contents/contents-of-cup', [ContentController::class, 'contentsOfCup']);
-        //200OK - nincs adat - sql jó
-        // Route::get('/orders/monthly-income', [OrderController::class, 'monthlyIncome']);
-        //ok
-        Route::get('/contents/top-products', [ContentController::class, 'topProducts']);
-        //200OK nincs adat - sql jó
-        // Route::get('/users/by-type', [UserController::class, 'usersByType']);
-        //200OK nincs adat - itt tartok 
-        // Route::get('/products/by-type', [ProductController::class, 'getProductsByType']);
-        //ok
-        Route::get('/users/{id}/orders', [UserController::class, 'getUserOrders']);
-         //200 ok nincs adat - sql jó
-        //  Route::get('/orders/by-status', [OrderController::class, 'getOrdersByStatus']);
-        //200 ok nincs adat 
-        // Route::get('/users/ready-orders', [UserController::class, 'getUsersWithReadyOrders']);
-         //200 ok nincs adat
-        // Route::get('/users/subscribed', [UserController::class, 'suscribedUsers']);
-    });
