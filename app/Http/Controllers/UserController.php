@@ -110,7 +110,7 @@ class UserController extends Controller
         SELECT *
         FROM users
         JOIN orders ON users.id = orders.user
-        WHERE orders.status = 'exg'
+        WHERE orders.order_status = 'ABC'
         "
         );
 
@@ -120,7 +120,7 @@ class UserController extends Controller
     public function suscribedUsers()
     {
         $sql = "
-        SELECT *
+        SELECT name, email
         FROM users
         WHERE is_subscribed = 1";
 
