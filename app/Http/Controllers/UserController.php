@@ -95,9 +95,10 @@ class UserController extends Controller
         WHERE user = :userId
     ";
 
-        $count = DB::selectOne($sql, ['userId' => $user->user]);
+        $count = DB::selectOne($sql, ['userId' => $user->id]);
 
         return response()->json([
+            
             'order_count' => $count->order_count
         ], 200);
     }
