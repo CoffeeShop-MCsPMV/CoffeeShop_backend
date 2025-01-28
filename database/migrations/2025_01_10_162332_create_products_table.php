@@ -20,7 +20,7 @@ return new class extends Migration
             $table->integer('unit_ml');
             $table->timestamps();
 
-            $table->foreign('category')->references('code')->on('dictionaries')->onDelete('cascade');
+            $table->foreign('category')->references('code')->on('dictionaries')->onDelete('cascade'); });
 
             DB::table('products')->insert([
                 // Összetevők
@@ -28,7 +28,7 @@ return new class extends Migration
                 ['name' => 'Water', 'type' => 'I', 'category' => 'BAS', 'current_price' => 0, 'unit_ml' => 30],
                 ['name' => 'Milk', 'type' => 'I', 'category' => 'MIL', 'current_price' => 0, 'unit_ml' => 100],
                 ['name' => 'Whipped Cream', 'type' => 'I', 'category' => 'TOP', 'current_price' => 0, 'unit_ml' => 30],
-                ['name' => 'Ice', 'type' => 'I', 'category' => 'ICE', 'current_price' => 0, 'unit_ml' => 200],
+                // ['name' => 'Ice', 'type' => 'I', 'category' => '', 'current_price' => 0, 'unit_ml' => 200],
                 ['name' => 'Chocolate Syrup', 'type' => 'I', 'category' => 'SYR', 'current_price' => 0, 'unit_ml' => 20],
                 ['name' => 'Matcha Powder', 'type' => 'I', 'category' => 'BAS', 'current_price' => 0, 'unit_ml' => 2],
                 ['name' => 'Honey', 'type' => 'I', 'category' => 'SWE', 'current_price' => 0, 'unit_ml' => 10],
@@ -75,7 +75,7 @@ return new class extends Migration
                 ['name' => 'Iced Chai Latte', 'type' => 'F', 'category' => 'IDR', 'current_price' => 3.50, 'unit_ml' => 300],
                 ]);
                 
-        });
+        
     }
 
     public function down(): void
