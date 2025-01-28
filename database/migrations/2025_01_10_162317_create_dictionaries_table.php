@@ -41,6 +41,8 @@ return new class extends Migration
             ['code' => 'SWE', 'description' => 'Sweeteners', 'reference' => 'I'],
             ['code' => 'SYR', 'description' => 'Flavored Syrups', 'reference' => 'I'],
             ['code' => 'TOP', 'description' => 'Toppings', 'reference' => 'I'],
+            ['code' => 'FRU', 'description' => 'Fruit purees / juices', 'reference' => 'I'],
+
         ]);
         
         

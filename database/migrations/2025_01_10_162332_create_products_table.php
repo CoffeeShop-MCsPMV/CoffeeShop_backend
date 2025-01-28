@@ -74,6 +74,36 @@ return new class extends Migration
                 ['name' => 'Peach Iced Tea', 'type' => 'F', 'category' => 'ICT', 'current_price' => 2.50, 'unit_ml' => 300],
                 ['name' => 'Iced Chai Latte', 'type' => 'F', 'category' => 'IDR', 'current_price' => 3.50, 'unit_ml' => 300],
                 ]);
+
+                DB::table('products')->insert([
+                    ['name' => 'Classic Lemonade', 'type' => 'F', 'category' => 'IDR', 'current_price' => 2.50, 'unit_ml' => 300],
+                    ['name' => 'Strawberry Lemonade', 'type' => 'F', 'category' => 'IDR', 'current_price' => 3.00, 'unit_ml' => 300],
+                    ['name' => 'Blueberry Lemonade', 'type' => 'F', 'category' => 'IDR', 'current_price' => 3.20, 'unit_ml' => 300],
+                    ['name' => 'Lavender Lemonade', 'type' => 'F', 'category' => 'IDR', 'current_price' => 3.50, 'unit_ml' => 300],
+                    ['name' => 'Berry Punch', 'type' => 'F', 'category' => 'HOD', 'current_price' => 4.00, 'unit_ml' => 350],
+                    ['name' => 'Citrus Punch', 'type' => 'F', 'category' => 'HOD', 'current_price' => 3.50, 'unit_ml' => 300],
+                    ['name' => 'Peach Punch', 'type' => 'F', 'category' => 'HOD', 'current_price' => 3.70, 'unit_ml' => 300],
+                ]);
+
+                // kimaradt összetevők:
+
+                DB::table('products')->insert([
+                    ['name' => 'Espresso Coffee', 'type' => 'I', 'category' => 'BAS', 'current_price' => 0, 'unit_ml' => 30],
+                    ['name' => 'Ice', 'type' => 'I', 'category' => 'BAS', 'current_price' => 0, 'unit_ml' => 200],
+                    ['name' => 'Caramel Syrup', 'type' => 'I', 'category' => 'SYR', 'current_price' => 0, 'unit_ml' => 20],
+                    ['name' => 'Vanilla Ice Cream', 'type' => 'I', 'category' => 'TOP', 'current_price' => 0, 'unit_ml' => 100],
+                    ['name' => 'Turmeric Powder', 'type' => 'I', 'category' => 'BAS', 'current_price' => 0, 'unit_ml' => 2],
+                    ['name' => 'Raspberry Puree', 'type' => 'I', 'category' => 'FRU', 'current_price' => 0, 'unit_ml' => 20],
+                    ['name' => 'Blueberry Puree', 'type' => 'I', 'category' => 'FRU', 'current_price' => 0, 'unit_ml' => 30],
+                    ['name' => 'Cranberry Juice', 'type' => 'I', 'category' => 'FRU', 'current_price' => 0, 'unit_ml' => 50],
+                    ['name' => 'Lime Juice', 'type' => 'I', 'category' => 'FRU', 'current_price' => 0, 'unit_ml' => 20],
+                    ['name' => 'Peach Puree', 'type' => 'I', 'category' => 'FRU', 'current_price' => 0, 'unit_ml' => 40],
+                    ['name' => 'Strawberry Puree', 'type' => 'I', 'category' => 'FRU', 'current_price' => 0, 'unit_ml' => 30],
+                    ['name' => 'Fresh Lemon Juice', 'type' => 'I', 'category' => 'FRU', 'current_price' => 0, 'unit_ml' => 30],
+                    ['name' => 'Orange Juice', 'type' => 'I', 'category' => 'FRU', 'current_price' => 0, 'unit_ml' => 50],
+                ]);
+                
+                
                 
         
     }
