@@ -3,6 +3,7 @@
 use App\Models\Dictionary;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
@@ -16,23 +17,33 @@ return new class extends Migration
             $table->timestamps();
         });
 
-        Dictionary::create([
-            'code'=>'ABC',
-            'description'=>'teszt_adat1',
-            'reference'=>'A',]
-        );
+        DB::table('dictionaries')->insert([
+            ['code' => 'REC', 'description' => 'Received', 'reference' => 'S'],
+            ['code' => 'ACC', 'description' => 'Accepted', 'reference' => 'S'],
+            ['code' => 'PRO', 'description' => 'In Progress', 'reference' => 'S'],
+            ['code' => 'COM', 'description' => 'Completed', 'reference' => 'S'],
+            ['code' => 'PUP', 'description' => 'Picked Up', 'reference' => 'S'],
+            ['code' => 'CAN', 'description' => 'Canceled', 'reference' => 'S'],
+        ]);
 
-        Dictionary::create([
-            'code'=>'BCD',
-            'description'=>'teszt_adat2',
-            'reference'=>'A',]
-        );
-
-        Dictionary::create([
-            'code'=>'CDE',
-            'description'=>'teszt_adat3',
-            'reference'=>'B',]
-        );
+        DB::table('dictionaries')->insert([
+            ['code' => 'COF', 'description' => 'Coffee', 'reference' => 'F'],
+            ['code' => 'TEA', 'description' => 'Tea', 'reference' => 'F'],
+            ['code' => 'ICF', 'description' => 'Iced Coffee', 'reference' => 'F'],
+            ['code' => 'ICT', 'description' => 'Iced Tea', 'reference' => 'F'],
+            ['code' => 'HOD', 'description' => 'Hot drinks', 'reference' => 'F'],
+            ['code' => 'IDR', 'description' => 'Iced drinks', 'reference' => 'F'],
+        ]);
+        
+        DB::table('dictionaries')->insert([
+            ['code' => 'BAS', 'description' => 'Base Ingredients', 'reference' => 'I'],
+            ['code' => 'MIL', 'description' => 'Milks', 'reference' => 'I'],
+            ['code' => 'SWE', 'description' => 'Sweeteners', 'reference' => 'I'],
+            ['code' => 'FLS', 'description' => 'Flavored Syrups', 'reference' => 'I'],
+            ['code' => 'TOP', 'description' => 'Toppings', 'reference' => 'I'],
+        ]);
+        
+        
     }
 
     public function down(): void
