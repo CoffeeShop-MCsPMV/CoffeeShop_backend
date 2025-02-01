@@ -9,7 +9,6 @@ class ProductRecipe extends Model
 {
     use HasFactory;
     
-    protected $primaryKey = ['product', 'ingredient'];
     public $incrementing = false;
 
     protected $fillable = [
@@ -17,6 +16,15 @@ class ProductRecipe extends Model
         'ingredient',
         'quantity',
     ];
+
+    protected function setKeysForSaveQuery($query)
+    {
+        $query
+            ->where('product', '=', $this->getAttribute('product'))
+            ->where('ingredient', '=', $this->getAttribute('ingredient'));
+
+        return $query;
+    }
 
     public $timestamps = true;
 

@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\ProductRecipe;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\DB;
@@ -10,12 +11,11 @@ return new class extends Migration
     public function up()
     {
         Schema::create('product_recipes', function (Blueprint $table) {
+            $table->primary(['product', 'ingredient']);
             $table->unsignedBigInteger('product');
             $table->unsignedBigInteger('ingredient');
             $table->integer('quantity');
             $table->timestamps();
-
-            $table->primary(['product', 'ingredient']);
 
             $table->foreign('product')->references('product_id')->on('products')->onDelete('cascade');
             $table->foreign('ingredient')->references('product_id')->on('products')->onDelete('cascade');
@@ -57,7 +57,7 @@ return new class extends Migration
                 ['product' => 20021, 'ingredient' => 20004, 'quantity' => 1.5],
                 ['product' => 20021, 'ingredient' => 20003, 'quantity' => 1],
                 //green tea
-                ['product' => 20022, 'ingredient' => 20067, 'quantity' => 1],
+               // ['product' => 20022, 'ingredient' => 20067, 'quantity' => 1],
                 ['product' => 20022, 'ingredient' => 20001, 'quantity' => 20],
                 //iced coffee
                 ['product' => 20023, 'ingredient' => 20000, 'quantity' => 3],
@@ -173,25 +173,25 @@ return new class extends Migration
                 ['product' => 20045, 'ingredient' => 20006, 'quantity' => 1],
                 //classic lemonade
                 ['product' => 20046, 'ingredient' => 20064, 'quantity' => 3],
-                ['product' => 20046, 'ingredient' => 20066, 'quantity' => 2],
+              //  ['product' => 20046, 'ingredient' => 20066, 'quantity' => 2],
                 ['product' => 20046, 'ingredient' => 20001, 'quantity' => 25],
                 ['product' => 20046, 'ingredient' => 20054, 'quantity' => 0.5],
                 //berry lemonade
                 ['product' => 20047, 'ingredient' => 20064, 'quantity' => 2],
                 ['product' => 20047, 'ingredient' => 20063, 'quantity' => 1],
-                ['product' => 20047, 'ingredient' => 20066, 'quantity' => 1],
+              //  ['product' => 20047, 'ingredient' => 20066, 'quantity' => 1],
                 ['product' => 20047, 'ingredient' => 20001, 'quantity' => 24],
                 ['product' => 20047, 'ingredient' => 20054, 'quantity' => 0.5],
                 //blueberry lemonade
                 ['product' => 20048, 'ingredient' => 20064, 'quantity' => 2],
                 ['product' => 20048, 'ingredient' => 20059, 'quantity' => 1],
-                ['product' => 20048, 'ingredient' => 20066, 'quantity' => 1],
+              //  ['product' => 20048, 'ingredient' => 20066, 'quantity' => 1],
                 ['product' => 20048, 'ingredient' => 20001, 'quantity' => 24],
                 ['product' => 20048, 'ingredient' => 20054, 'quantity' => 0.5],
                 //lavender lemonade
                 ['product' => 20049, 'ingredient' => 20064, 'quantity' => 2],
                 ['product' => 20049, 'ingredient' => 20010, 'quantity' => 1],
-                ['product' => 20049, 'ingredient' => 20066, 'quantity' => 1],
+              //  ['product' => 20049, 'ingredient' => 20066, 'quantity' => 1],
                 ['product' => 20049, 'ingredient' => 20001, 'quantity' => 24],
                 ['product' => 20049, 'ingredient' => 20054, 'quantity' => 0.5],
                 //berry punch
@@ -204,14 +204,15 @@ return new class extends Migration
                 ['product' => 20051, 'ingredient' => 20065, 'quantity' => 1],
                 ['product' => 20051, 'ingredient' => 20064, 'quantity' => 2],
                 ['product' => 20051, 'ingredient' => 20061, 'quantity' => 1],
-                ['product' => 20051, 'ingredient' => 20066, 'quantity' => 2],
+              //  ['product' => 20051, 'ingredient' => 20066, 'quantity' => 2],
                 ['product' => 20051, 'ingredient' => 20001, 'quantity' => 19],
                 //peach punch
                 ['product' => 20052, 'ingredient' => 20062, 'quantity' => 1],
                 ['product' => 20052, 'ingredient' => 20064, 'quantity' => 2],
-                ['product' => 20052, 'ingredient' => 20066, 'quantity' => 1],
+             //   ['product' => 20052, 'ingredient' => 20066, 'quantity' => 1],
                 ['product' => 20052, 'ingredient' => 20001, 'quantity' => 23],
             ]);
+                
         });
     }
 
