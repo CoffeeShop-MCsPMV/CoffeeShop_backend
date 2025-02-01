@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
@@ -18,6 +19,11 @@ return new class extends Migration
         
             $table->foreign('product')->references('product_id')->on('products')->onDelete('cascade');
             $table->foreign('ingredient')->references('product_id')->on('products')->onDelete('cascade');
+
+            DB::table('product_recipes')->insert([
+                ['product' => 20014, 'ingredient' => 20000, 'quantity' => 3],
+                ['product' => 20014, 'ingredient' => 20001, 'quantity' => 1] 
+            ]);
         });
     }
 

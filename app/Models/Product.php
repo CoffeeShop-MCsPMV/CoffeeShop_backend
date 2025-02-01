@@ -18,7 +18,7 @@ class Product extends Model
         'category',
         'is_available',
         'current_price',
-        'unit_ml',
+        'unit',
     ];
 
     protected $casts = [
