@@ -24,8 +24,8 @@ return new class extends Migration
 
             DB::table('products')->insert([
                 // Összetevők
-                ['name' => 'Ground Coffee', 'type' => 'I', 'category' => 'BAS', 'current_price' => 0, 'unit' => 10],
-                ['name' => 'Water', 'type' => 'I', 'category' => 'BAS', 'current_price' => 0, 'unit' => 30],
+                ['name' => 'Ground Coffee', 'type' => 'I', 'category' => 'BAS', 'current_price' => 0, 'unit' => 2],
+                ['name' => 'Water', 'type' => 'I', 'category' => 'BAS', 'current_price' => 0, 'unit' => 10],
                 ['name' => 'Milk', 'type' => 'I', 'category' => 'MIL', 'current_price' => 0, 'unit' => 100],
                 ['name' => 'Whipped Cream', 'type' => 'I', 'category' => 'TOP', 'current_price' => 0, 'unit' => 30],
                 // ['name' => 'Ice', 'type' => 'I', 'category' => '', 'current_price' => 0, 'unit' => 200],
@@ -99,8 +99,11 @@ return new class extends Migration
                     ['name' => 'Lime Juice', 'type' => 'I', 'category' => 'FRU', 'current_price' => 0, 'unit' => 20],
                     ['name' => 'Peach Puree', 'type' => 'I', 'category' => 'FRU', 'current_price' => 0, 'unit' => 40],
                     ['name' => 'Strawberry Puree', 'type' => 'I', 'category' => 'FRU', 'current_price' => 0, 'unit' => 30],
-                    ['name' => 'Fresh Lemon Juice', 'type' => 'I', 'category' => 'FRU', 'current_price' => 0, 'unit' => 30],
+                    ['name' => 'Fresh Lemon Juice', 'type' => 'I', 'category' => 'FRU', 'current_price' => 0, 'unit' => 10],
                     ['name' => 'Orange Juice', 'type' => 'I', 'category' => 'FRU', 'current_price' => 0, 'unit' => 50],
+                    ['name' => 'Sugar Syrup', 'type' => 'I', 'category' => 'SWE', 'current_price' => 0, 'unit' => 10],
+                    ['name' => 'Green Tea Bag', 'type' => 'I', 'category' => 'BAS', 'current_price' => 0, 'unit' => 1],
+
                 ]);
                 
                 

@@ -11,16 +11,15 @@ return new class extends Migration
     {
         Schema::create('product_recipes', function (Blueprint $table) {
             $table->unsignedBigInteger('product');
-            $table->unsignedBigInteger('ingredient'); 
+            $table->unsignedBigInteger('ingredient');
             $table->integer('quantity');
             $table->timestamps();
 
             $table->primary(['product', 'ingredient']);
-        
+
             $table->foreign('product')->references('product_id')->on('products')->onDelete('cascade');
             $table->foreign('ingredient')->references('product_id')->on('products')->onDelete('cascade');
 
-            
         });
     }
 
