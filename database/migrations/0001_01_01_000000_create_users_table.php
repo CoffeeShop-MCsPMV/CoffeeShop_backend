@@ -19,7 +19,7 @@ return new class extends Migration
             $table->rememberToken();
             $table->timestamps();
             $table->boolean('is_subscribed')->default(0);
-            $table->char('profile_type');
+            $table->char('profile_type')->default('U');
         });
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {
