@@ -14,6 +14,12 @@ class ProductRecipeController extends Controller
         return ProductRecipe::all();
     }
 
+    public function ifProductType($searchTerm)
+    {
+        $type = Product::where('product_id', $searchTerm)->value('type');
+        return $type;
+    }
+
     public function store(Request $request)
     {
         $validatedData = $request->validate([
@@ -22,10 +28,25 @@ class ProductRecipeController extends Controller
             'quantity' => 'required|integer|min:1',
         ]);
 
+        // Lekérdezzük a termékek típusát
+        $productType = $this->ifProductType($validatedData['product']);
+        $ingredientType = $this->ifProductType($validatedData['ingredient']);
+
+        // Ellenőrizzük a típusokat
+        if ($productType !== 'F' || $ingredientType !== 'I') {
+            return response()->json(['error' => 'Invalid product or ingredient type'], 400);
+        }
+
+        // Ha megfelelnek a típusok, mentjük az adatokat
         $record = new ProductRecipe();
-        $record->fill($validatedData);
+        $record->product = $validatedData['product'];
+        $record->ingredient = $validatedData['ingredient'];
+        $record->quantity = $validatedData['quantity'];
         $record->save();
+
+        return response()->json(['message' => 'Product recipe saved successfully'], 201);
     }
+
 
     public function show($product, $ingredient)
     {
@@ -38,23 +59,23 @@ class ProductRecipeController extends Controller
 
     public function update(Request $request, $productId, $ingredientId)
     {
-        
+
         $request->validate([
             'quantity' => 'required|integer|min:1',
         ]);
-    
-        
+
+
         $productRecipe = DB::table('product_recipes')
             ->where('product', $productId)
             ->where('ingredient', $ingredientId)
             ->first();
-    
-        
+
+
         if (!$productRecipe) {
             return response()->json(['message' => 'Record not found'], 404);
         }
-    
-        
+
+
         DB::table('product_recipes')
             ->where('product', $productId)
             ->where('ingredient', $ingredientId)
@@ -62,10 +83,10 @@ class ProductRecipeController extends Controller
                 'quantity' => $request->input('quantity'),
                 'updated_at' => now(),
             ]);
-    
+
         return response()->json(['message' => 'Record updated successfully']);
     }
-    
+
 
 
     public function destroy($product, $ingredient)
@@ -74,18 +95,17 @@ class ProductRecipeController extends Controller
     }
 
     public function ingredientsOfProduct($productId)
-{
-    $ingredients = DB::table('product_recipes')
-        ->join('products as p', 'product_recipes.ingredient', '=', 'p.product_id') 
-        ->where('product_recipes.product', '=', $productId) 
-        ->select('p.name as ingredient_name', 'product_recipes.quantity')  
-        ->get();
+    {
+        $ingredients = DB::table('product_recipes')
+            ->join('products as p', 'product_recipes.ingredient', '=', 'p.product_id')
+            ->where('product_recipes.product', '=', $productId)
+            ->select('p.name as ingredient_name', 'product_recipes.quantity')
+            ->get();
 
-    if ($ingredients->isEmpty()) {
-        return response()->json(['message' => 'No ingredients found for this product'], 404);
+        if ($ingredients->isEmpty()) {
+            return response()->json(['message' => 'No ingredients found for this product'], 404);
+        }
+
+        return response()->json($ingredients);
     }
-
-    return response()->json($ingredients);
-}
-
 }
