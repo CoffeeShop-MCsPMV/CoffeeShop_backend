@@ -11,6 +11,11 @@ use Illuminate\Support\Facades\DB;
 
 class ContentController extends Controller
 {
+    public function addType($product){
+        $type=Product::where('product_id',$product)->value('type');
+        return $type;
+
+    }
 
     public function costCounter($product, $cup,){
         $price=Product::where('product_id',$product)->value('current_price');
@@ -37,6 +42,7 @@ class ContentController extends Controller
         $this->costCounter($product, $cup);
         $record = new Content();
         $record->fill($request->all());
+        $record->product_type = $this->addType($product);
         $record->save();
     }
 

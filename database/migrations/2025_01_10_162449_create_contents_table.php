@@ -12,7 +12,7 @@ return new class extends Migration
             $table->unsignedBigInteger('cup_id');  
             $table->unsignedBigInteger('product_id'); 
             $table->primary(['cup_id', 'product_id']);  
-            $table->char('product_type', 1);  
+            $table->char('product_type', 1)->default(null);  
             $table->timestamps();
             
             $table->foreign('cup_id')->references('cup_id')->on('order_items')->onDelete('cascade');
