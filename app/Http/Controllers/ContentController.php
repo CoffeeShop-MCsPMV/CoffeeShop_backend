@@ -40,17 +40,17 @@ class ContentController extends Controller
         $record->save();
     }
 
-    public function update(Request $request, $cup_id, $product_id)
-    {
-        $record = $this->show($cup_id, $product_id);
-        $record->fill($request->all());
-        $record->save();
-    }
+    // public function update(Request $request, $cup_id, $product_id)
+    // {
+    //     $record = $this->show($cup_id, $product_id);
+    //     $record->fill($request->all());
+    //     $record->save();
+    // }
 
-    public function destroy($cup_id, $product_id)
-    {
-        $this->show($cup_id, $product_id)->delete();
-    }
+    // public function destroy($cup_id, $product_id)
+    // {
+    //     $this->show($cup_id, $product_id)->delete();
+    // }
 
     public function contentsOfCup()
     {
