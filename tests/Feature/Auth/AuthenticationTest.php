@@ -13,15 +13,19 @@ class AuthenticationTest extends TestCase
 
     public function test_users_can_authenticate_using_the_login_screen(): void
     {
-        $user = User::factory()->create();
-
-        $response = $this->post('/login', [
-            'email' => 'testuser@example.com',
-            'password' => 'test123',
+        $user = User::factory()->create([
+            'password' => bcrypt($password = 'i-love-laravel'),
         ]);
 
-        dd($response->status(), $response->json());
+        $response = $this->post('/login', [
+            'email' => $user->email, 
+            'password' => $password,
+        ]);
+
+        $this->assertAuthenticatedAs($user);
+        $response->assertNoContent(); 
     }
+
 
     public function test_users_can_not_authenticate_with_invalid_password(): void
     {
