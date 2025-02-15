@@ -3,11 +3,25 @@
 namespace App\Http\Controllers;
 
 use App\Models\Content;
+use App\Models\Order;
+use App\Models\OrderItem;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class ContentController extends Controller
 {
+
+    public function costCounter($product, $cup,){
+        $price=Product::where('product_id',$product)->value('current_price');
+        $orderItem=OrderItem::where('cup_id',$cup);
+        $orderItem->item_price += $price;
+        $orderItem->save(); 
+
+        $order=Order::where('order_id',($orderItem->value('order_id')));
+        $order->total_cost += $price;
+        $order->save();
+    }
     public function show($cup_id, $product_id)
     {
         $cup_content = Content::where('cup_id', $cup_id)
@@ -18,6 +32,9 @@ class ContentController extends Controller
 
     public function store(Request $request)
     {
+        $product = $request->input('product_id');
+        $cup = $request->input('cup_id');
+        $this->costCounter($product, $cup);
         $record = new Content();
         $record->fill($request->all());
         $record->save();
