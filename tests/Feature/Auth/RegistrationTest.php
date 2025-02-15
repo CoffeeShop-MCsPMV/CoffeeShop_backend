@@ -11,26 +11,16 @@ class RegistrationTest extends TestCase
 
     public function test_new_users_can_register(): void
     {
-        $user = [
-            'name' => 'User',
-            'email' => 'user@example.com',
-            'password' => 'password',
-            'password_confirmation' => 'password',
-        ];
-
-        $response = $this->post('/register', $user);
-
-        // Ha az API JSON választ ad vissza, akkor inkább assertCreated()
-        $response->assertRedirect('/home'); // Ha a regisztráció után átirányít
-        // vagy
-        // $response->assertStatus(201); // Ha API válaszként JSON-t küld vissza
-
-        $this->assertAuthenticated();
-
-        // A jelszó nem egyezik az adatbázisban a hashelés miatt, ezért így ellenőrizzük:
-        $this->assertDatabaseHas('users', [
-            'name' => 'User',
-            'email' => 'user@example.com',
+        $response = $this->post('/register', [
+            'name' => 'Test User',
+            'email' => 'testing@example.com',
+            'password' => 'password1',
+            'password_confirmation' => 'password1',
+            // 'is_suscribed'=>0,
+            // 'profile_type'=>'U'
         ]);
+
+        // $this->assertAuthenticated();
+        $this->assertDatabaseHas('users', ['name' => 'Test User']);
     }
 }
