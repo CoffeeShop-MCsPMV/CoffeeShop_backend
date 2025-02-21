@@ -15,6 +15,26 @@ class ContentTest extends TestCase
 {
     // use RefreshDatabase;
 
+    // public function test_store()
+    // {
+    //     $product = Product::factory()->create(['product_id' => 1, 'type' => 'coffee']);
+    //     $orderItem = OrderItem::factory()->create(['cup_id' => 1]);
+
+    //     $request = new Request([
+    //         'product_id' => $product->id,
+    //         'cup_id' => $orderItem->cup_id
+    //     ]);
+
+    //     $controller = new \App\Http\Controllers\YourController();
+    //     $controller->store($request);
+
+    //     $this->assertDatabaseHas('contents', [
+    //         'product_id' => $product->id,
+    //         'product_type' => 'coffee',
+    //         'cup_id' => $orderItem->cup_id
+    //     ]);
+    // }
+
     // #[Test]
     // public function it_can_store_content()
     // {
