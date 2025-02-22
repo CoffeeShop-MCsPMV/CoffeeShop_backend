@@ -39,6 +39,7 @@ Route::middleware(['auth:sanctum'])
         Route::get('/most-purchased-product', [UserController::class, 'getMostPurchasedProduct']);
         Route::get('/order-count', [UserController::class, 'countUserOrders']);
         Route::get('/by-type', [ProductController::class, 'getProductsByType']);
+        Route::get('/by-category', [ProductController::class, 'getProductsByCategory']);
     });
 
 Route::middleware(['auth:sanctum', Admin::class])
