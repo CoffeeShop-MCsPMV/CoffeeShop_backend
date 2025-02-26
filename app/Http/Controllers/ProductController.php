@@ -78,4 +78,24 @@ class ProductController extends Controller
 
     return response()->json($products, 200);
 }
+
+public function getProductsByCategory(Request $request)
+{
+    // Paraméter kinyerése az API kérésből
+    $category = $request->input('category');
+
+    // Ellenőrzés, hogy a type paraméter érvényes-e
+    if (!in_array($category, ['COF', 'TEA', 'ICF', 'ICT', 'HOD', 'IDR'])) {
+        return response()->json(['error' => 'Category is not find'], 400);
+    }
+
+    // Query Builder lekérdezés
+    $products = DB::table('products')
+        ->select('name','src', 'current_price', 'type', 'is_available')
+        ->where('category', '=', $category)
+        ->orderBy('name', 'asc')
+        ->get();
+
+    return response()->json($products, 200);
+}
 }
