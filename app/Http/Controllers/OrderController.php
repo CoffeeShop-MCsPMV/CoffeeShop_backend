@@ -3,12 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\Order;
+use App\Services\OrderService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class OrderController extends Controller
 {
+    protected $orderService;
     public function index()
     {
         return Order::all();
@@ -19,11 +21,20 @@ class OrderController extends Controller
         return Order::find($order_id);
     }
 
+    public function __construct(OrderService $orderService)
+    {
+        $this->orderService = $orderService;
+    }
+
     public function store(Request $request)
     {
-        $record = new Order();
-        $record->fill($request->all());
-        $record->save();
+
+        $order = $this->orderService->createOrderWithItems(
+            $request->userId,
+            $request->products
+        );
+
+        return response()->json(['order_id' => $order->order_id], 201);
     }
 
     public function update(Request $request, $order_id)
