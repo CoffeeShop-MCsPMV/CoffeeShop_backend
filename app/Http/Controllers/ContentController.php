@@ -27,6 +27,7 @@ class ContentController extends Controller
         $order->total_cost += $price;
         $order->save();
     }
+    
     public function show($cup_id, $product_id)
     {
         $cup_content = Content::where('cup_id', $cup_id)
