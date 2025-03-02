@@ -25,7 +25,6 @@ class OrderItemController extends Controller
     {
         $record = new OrderItem();
         $record->order_id = $request->order_id;
-        $record->item_price = $request->item_price;
         $record->save();
     }
 
@@ -49,5 +48,13 @@ class OrderItemController extends Controller
     }
 
 
+    public function getLastCup($orderId)
+    {
 
+        $lastCupId = OrderItem::where('order_id', $orderId)
+            ->latest('created_at')
+            ->value('cup_id');
+
+        return $lastCupId;
+    }
 }

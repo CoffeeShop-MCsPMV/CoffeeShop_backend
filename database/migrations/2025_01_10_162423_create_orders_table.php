@@ -12,7 +12,7 @@ return new class extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->id('order_id');  
             $table->unsignedBigInteger('user');  
-            $table->datetime('date');
+            $table->timestamp('date')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->decimal('total_cost', 10, 2)->default(0);
             $table->string('order_status')->default('REC');
             $table->timestamps();

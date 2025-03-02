@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Order;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class OrderController extends Controller
@@ -70,9 +71,9 @@ class OrderController extends Controller
         return response()->json($income);
     }
 
-       public function getOrdersByStatus(Request $request)
+    public function getOrdersByStatus(Request $request)
     {
-        $status = $request->input('status'); 
+        $status = $request->input('status');
 
         if (!$status) {
             return response()->json(['error' => 'Status parameter is required'], 400);
@@ -85,7 +86,29 @@ class OrderController extends Controller
             ->orderBy('orders.created_at', 'asc')
             ->get();
 
-        return $results; 
+        return $results;
+    }
+    public function userLatestOrder()
+{
+    try {
+        $user = Auth::user();
 
+        if (!$user) {
+            return response()->json(['error' => 'User not authenticated'], 401);
+        }
+
+        $lastOrderId = Order::where('user', $user->id)
+            ->latest('created_at')
+            ->value('order_id');
+
+        if (!$lastOrderId) {
+            return response()->json(['message' => 'No orders found'], 404);
+        }
+
+        return response()->json(['order_id' => $lastOrderId], 200);
+    } catch (\Exception $e) {
+        return response()->json(['error' => 'Something went wrong', 'details' => $e->getMessage()], 500);
+    }
 }
+
 }
