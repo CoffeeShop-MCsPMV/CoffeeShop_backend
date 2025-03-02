@@ -71,7 +71,7 @@ class ProductController extends Controller
 
     // Query Builder lekérdezés
     $products = DB::table('products')
-        ->select('name','src', 'current_price', 'category', 'is_available')
+        ->select('product_id','name','src', 'current_price', 'category', 'is_available')
         ->where('type', '=', $type)
         ->orderBy('name', 'asc')
         ->get();
@@ -91,7 +91,7 @@ public function getProductsByCategory(Request $request)
 
     // Query Builder lekérdezés
     $products = DB::table('products')
-        ->select('name','src', 'current_price', 'type', 'is_available')
+        ->select('product_id','name','src', 'current_price', 'type', 'is_available')
         ->where('category', '=', $category)
         ->orderBy('name', 'asc')
         ->get();
