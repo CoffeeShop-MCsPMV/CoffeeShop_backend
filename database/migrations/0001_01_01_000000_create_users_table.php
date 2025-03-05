@@ -52,6 +52,14 @@ return new class extends Migration
             'is_subscribed' => true,
             'profile_type' => 'U',
         ]);
+
+        User::create([
+            'name' => 'Guest User',
+            'email' => 'guestuser@example.com',
+            'password' => Hash::make('guest123'),
+            'is_subscribed' => false,
+            'profile_type' => 'U',
+        ]);
     }
 
     public function down(): void

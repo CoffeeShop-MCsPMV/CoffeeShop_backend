@@ -6,50 +6,55 @@ use Illuminate\Support\Facades\DB;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Content;
+use App\Models\Product;
 
 class OrderService
 {
     public function createOrderWithItems(int $userId, array $products)
     {
-        DB::beginTransaction(); 
+        DB::beginTransaction();
 
         try {
             // Új rendelés létrehozása
             $order = Order::create(['user' => $userId]);
 
-            // OrderItem rekordok előkészítése
-            $orderItems = [];
-            foreach ($products as $productId) {
-                // Az order_id-t és a megfelelő product_id-t hozzárendeljük
-                $orderItems[] = [
-                    'order_id' => $order->order_id,  // Az order_id a rendelés ID-ja
-                ];
-            }
-
-            // OrderItem rekordok beszúrása
-            OrderItem::insert($orderItems); 
-
-            // Az OrderItem-ok lekérése, hogy a cup_id-t is hozzáadhassuk a Content táblához
-            $orderItemsFromDb = OrderItem::where('order_id', $order->order_id)->get();
-
-            // Content rekordok előkészítése
             $contents = [];
-            foreach ($orderItemsFromDb as $index => $orderItem) {
-                // A cup_id és product_id összekapcsolása a Content táblában
+
+            foreach ($products as $productId) {
+                // Termék típusának és árának lekérése
+                $product = Product::where('product_id', $productId)->first();
+                if (!$product) {
+                    throw new \Exception("Product not found: $productId");
+                }
+
+                // OrderItem létrehozása
+                $orderItem = OrderItem::create([
+                    'order_id' => $order->order_id,
+                    'item_price' => $product->current_price,
+                ]);
+
+                // Content rekord előkészítése
                 $contents[] = [
-                    'cup_id' => $orderItem->cup_id,  
-                    'product_id' => $products[$index],  // A termék ID-ját az eredeti listából
+                    'cup_id' => $orderItem->cup_id,
+                    'product_id' => $productId,
+                    'product_type' => $product->type
                 ];
+
+                // Rendelés teljes költségének frissítése
+                $order->total_cost += $product->current_price;
             }
 
             // Content rekordok beszúrása
-            Content::insert($contents); 
+            Content::insert($contents);
 
-            DB::commit();  // Ha minden rendben ment, elkötelezzük az adatokat
+            // Rendelés mentése frissített árral
+            $order->save();
+
+            DB::commit();
             return $order;
         } catch (\Exception $e) {
-            DB::rollBack();  // Ha bármi hiba történik, visszavonjuk az összes műveletet
-            throw $e;  // Kivétel dobása
+            DB::rollBack();
+            throw $e;
         }
     }
 }

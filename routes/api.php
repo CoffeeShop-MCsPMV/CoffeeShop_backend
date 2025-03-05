@@ -20,8 +20,10 @@ Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
     return $request->user();
 });
 
-
-
+Route::get('/products', [ProductController::class, 'index']);
+Route::get('/by-type', [ProductController::class, 'getProductsByType']);
+Route::get('/by-category', [ProductController::class, 'getProductsByCategory']);
+Route::post('/orders', [OrderController::class, 'store']);
 // Route::post('/register', [RegisteredUserController::class, 'store']);
 // Route::post('/login', [AuthenticatedSessionController::class, 'store']);
 
@@ -30,9 +32,9 @@ Route::middleware(['auth:sanctum'])
     ->group(function () {
         Route::get('/users/{id}', [UserController::class, 'show']);
         Route::put('/users/{id}', [UserController::class, 'update']);
-        Route::post('/orders', [OrderController::class, 'store']);
+        // Route::post('/orders', [OrderController::class, 'store']);
         Route::get('/user-latest-order', [OrderController::class, 'userLatestOrder']);
-        Route::get('/products', [ProductController::class, 'index']);
+       
         Route::get('/contents/{cup_id}/{product_id}', [ContentController::class, 'show']);
         Route::post('/contents', [ContentController::class, 'store']);
         Route::post('/order_items', [OrderItemController::class, 'store']);
@@ -41,8 +43,7 @@ Route::middleware(['auth:sanctum'])
         Route::post('/logout', [AuthenticatedSessionController::class, 'destroy']);
         Route::get('/most-purchased-product', [UserController::class, 'getMostPurchasedProduct']);
         Route::get('/order-count', [UserController::class, 'countUserOrders']);
-        Route::get('/by-type', [ProductController::class, 'getProductsByType']);
-        Route::get('/by-category', [ProductController::class, 'getProductsByCategory']);
+       
     });
 
 Route::middleware(['auth:sanctum', Admin::class])

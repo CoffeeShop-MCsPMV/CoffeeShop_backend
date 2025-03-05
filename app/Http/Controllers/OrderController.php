@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Order;
+use App\Models\User;
 use App\Services\OrderService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -28,15 +29,25 @@ class OrderController extends Controller
 
     public function store(Request $request)
     {
-
+        $userId = $request->userId;
+    
+        if (is_null($userId)) {
+            $guestUser = User::where('email', 'guestuser@example.com')->first();
+            if ($guestUser) {
+                $userId = $guestUser->id;
+            } else {
+                return response()->json(['error' => 'Guest user not found'], 404);
+            }
+        }
+    
         $order = $this->orderService->createOrderWithItems(
-            $request->userId,
+            $userId,
             $request->products
         );
-
+    
         return response()->json(['order_id' => $order->order_id], 201);
     }
-
+    
     public function update(Request $request, $order_id)
     {
         $record = Order::find($order_id);
