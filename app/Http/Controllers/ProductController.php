@@ -85,7 +85,7 @@ public function getProductsByCategory(Request $request)
     $category = $request->input('category');
 
     // Ellenőrzés, hogy a type paraméter érvényes-e
-    if (!in_array($category, ['COF', 'TEA', 'ICF', 'ICT', 'HOD', 'IDR'])) {
+    if (!in_array($category, ['COF', 'TEA', 'ICF', 'ICT', 'HOD', 'IDR', 'BAS', 'MIL', 'SYR', 'SWE', 'FRU', 'TOP'])) {
         return response()->json(['error' => 'Category is not find'], 400);
     }
 
