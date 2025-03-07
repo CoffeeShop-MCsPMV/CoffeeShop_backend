@@ -24,6 +24,7 @@ Route::get('/products', [ProductController::class, 'index']);
 Route::get('/by-type', [ProductController::class, 'getProductsByType']);
 Route::get('/by-category', [ProductController::class, 'getProductsByCategory']);
 Route::post('/orders', [OrderController::class, 'store']);
+Route::get('/top-products', [ContentController::class, 'topProducts']);
 // Route::post('/register', [RegisteredUserController::class, 'store']);
 // Route::post('/login', [AuthenticatedSessionController::class, 'store']);
 
@@ -66,7 +67,7 @@ Route::middleware(['auth:sanctum', Admin::class])
         Route::get('/product_recipes/ingredients-of-product/{productId}', [ProductRecipeController::class, 'ingredientsOfProduct']);
         Route::get('/contents-of-cup', [ContentController::class, 'contentsOfCup']);
         Route::get('/monthly-income', [OrderController::class, 'monthlyIncome']);
-        Route::get('/top-products', [ContentController::class, 'topProducts']);
+  
         Route::get('/usersBy-type', [UserController::class, 'usersByType']);
        
         Route::get('/users/{id}/orders', [UserController::class, 'getUserOrders']);
