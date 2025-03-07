@@ -94,12 +94,12 @@ class ContentController extends Controller
             JOIN 
                 products ON contents.product_id = products.product_id
             WHERE 
-                products.type = 'T'
+                products.type = 'F'
             GROUP BY 
                 contents.product_id
             ORDER BY 
                 total_count DESC
-            LIMIT 3
+            LIMIT 5
         ");
         return response()->json($topItems);
     }

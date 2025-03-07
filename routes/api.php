@@ -31,7 +31,8 @@ Route::post('/orders', [OrderController::class, 'store']);
 Route::middleware(['auth:sanctum'])
     ->group(function () {
         Route::get('/users/{id}', [UserController::class, 'show']);
-        Route::put('/users/{id}', [UserController::class, 'update']);
+        //Route::put('/users/{id}', [UserController::class, 'update']);
+        Route::patch('/user', [UserController::class, 'patch']);
         // Route::post('/orders', [OrderController::class, 'store']);
         Route::get('/user-latest-order', [OrderController::class, 'userLatestOrder']);
        
