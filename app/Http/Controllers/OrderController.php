@@ -110,6 +110,7 @@ class OrderController extends Controller
 
         return $results;
     }
+
     public function userLatestOrder()
 {
     try {
@@ -132,5 +133,23 @@ class OrderController extends Controller
         return response()->json(['error' => 'Something went wrong', 'details' => $e->getMessage()], 500);
     }
 }
+
+public function getUserOrdersProduct($orderId)
+    {   
+        $sql = "
+        SELECT p.name, o.order_id
+        FROM orders o
+        JOIN order_items oi ON o.order_id = oi.order_id
+        JOIN contents c ON oi.cup_id = c.cup_id
+        JOIN products p ON c.product_id = p.product_id
+        WHERE o.order_id = :orderId;
+        ";
+
+        $orders = DB::select($sql, ['orderId' => $orderId]);
+
+        return response()->json([
+            'orders' => $orders
+        ]);
+    }
 
 }

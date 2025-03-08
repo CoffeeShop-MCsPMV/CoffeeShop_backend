@@ -36,7 +36,7 @@ Route::middleware(['auth:sanctum'])
         Route::patch('/user', [UserController::class, 'patch']);
         // Route::post('/orders', [OrderController::class, 'store']);
         Route::get('/user-latest-order', [OrderController::class, 'userLatestOrder']);
-       
+        Route::get('/users/{id}/orders', [UserController::class, 'getUserOrders']);
         Route::get('/contents/{cup_id}/{product_id}', [ContentController::class, 'show']);
         Route::post('/contents', [ContentController::class, 'store']);
         Route::post('/order_items', [OrderItemController::class, 'store']);
@@ -45,7 +45,8 @@ Route::middleware(['auth:sanctum'])
         Route::post('/logout', [AuthenticatedSessionController::class, 'destroy']);
         Route::get('/most-purchased-product', [UserController::class, 'getMostPurchasedProduct']);
         Route::get('/order-count', [UserController::class, 'countUserOrders']);
-       
+        Route::get('/orders/{orderId}/products', [OrderController::class, 'getUserOrdersProduct']);
+        
     });
 
 Route::middleware(['auth:sanctum', Admin::class])
@@ -70,7 +71,7 @@ Route::middleware(['auth:sanctum', Admin::class])
   
         Route::get('/usersBy-type', [UserController::class, 'usersByType']);
        
-        Route::get('/users/{id}/orders', [UserController::class, 'getUserOrders']);
+        
         Route::get('/by-status', [OrderController::class, 'getOrdersByStatus']);
         Route::get('/ready-orders', [UserController::class, 'getUsersWithReadyOrders']);
         Route::get('/subscribed', [UserController::class, 'suscribedUsers']);
