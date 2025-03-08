@@ -21,33 +21,60 @@ class OrderService
             $contents = [];
 
             foreach ($products as $productId) {
-                // Termék típusának és árának lekérése
-                $product = Product::where('product_id', $productId)->first();
-                if (!$product) {
-                    throw new \Exception("Product not found: $productId");
+                // Kevert termékek kezelése
+                if (is_array($productId)) {
+                    $mixedProductId = $productId;
+                    $mixedPrice = 0.0;
+
+                    // Kevert termékek ciklusa
+                    $orderItem = OrderItem::create([
+                        'order_id' => $order->order_id,
+                        'item_price' => 0.0, // Kezdeti ár
+                    ]);
+
+                    foreach ($mixedProductId as $ingredient) {
+                        $ingredientOfCup = Product::where('product_id', $ingredient)->first();
+                        if ($ingredientOfCup) {
+                            $contents[] = [
+                                'cup_id' => $orderItem->cup_id,
+                                'product_id' => $ingredientOfCup->product_id,
+                                'product_type' => $ingredientOfCup->type
+                            ];
+                            $mixedPrice += $ingredientOfCup->current_price;
+                        }
+                    }
+
+                    // Frissítés kevert termék ára
+                    $orderItem->item_price = $mixedPrice;
+                    $order->total_cost += $mixedPrice;
+
+                } else {
+                    // Normál termékek kezelése
+                    $product = Product::where('product_id', $productId)->first();
+                    if (!$product) {
+                        throw new \Exception("Product not found: $productId");
+                    }
+
+                    $orderItem = OrderItem::create([
+                        'order_id' => $order->order_id,
+                        'item_price' => $product->current_price,
+                    ]);
+
+                    // Content rekord előkészítése
+                    $contents[] = [
+                        'cup_id' => $orderItem->cup_id,
+                        'product_id' => $product->product_id,
+                        'product_type' => $product->type
+                    ];
+
+                    $order->total_cost += $product->current_price;
                 }
-
-                // OrderItem létrehozása
-                $orderItem = OrderItem::create([
-                    'order_id' => $order->order_id,
-                    'item_price' => $product->current_price,
-                ]);
-
-                // Content rekord előkészítése
-                $contents[] = [
-                    'cup_id' => $orderItem->cup_id,
-                    'product_id' => $productId,
-                    'product_type' => $product->type
-                ];
-
-                // Rendelés teljes költségének frissítése
-                $order->total_cost += $product->current_price;
             }
 
-            // Content rekordok beszúrása
+            // Content rekordok egyszerre történő beszúrása
             Content::insert($contents);
 
-            // Rendelés mentése frissített árral
+            // Rendelés mentése
             $order->save();
 
             DB::commit();

@@ -31,15 +31,15 @@ return new class extends Migration
             ['name' => 'Whipped Cream', 'src' => null, 'type' => 'I', 'category' => 'TOP', 'current_price' => 0, 'unit' => 30],
             // ['name' => 'Ice', 'type' => 'I', 'category' => '', 'current_price' => 0, 'unit' => 200],
             ['name' => 'Chocolate Syrup', 'src' => null, 'type' => 'I', 'category' => 'SYR', 'current_price' => 0, 'unit' => 20],
-            ['name' => 'Matcha Powder', 'src' => 'images/matcha.jpg', 'type' => 'I', 'category' => 'BAS', 'current_price' => 0, 'unit' => 2],
+            ['name' => 'Matcha Powder', 'src' => 'images/matcha.jpg', 'type' => 'I', 'category' => 'BAS', 'current_price' => 2.5, 'unit' => 2],
             ['name' => 'Honey', 'src' => null, 'type' => 'I', 'category' => 'SWE', 'current_price' => 0, 'unit' => 10],
             ['name' => 'Cinnamon Syrup', 'src' => null, 'type' => 'I', 'category' => 'SYR', 'current_price' => 0, 'unit' => 10],
             ['name' => 'Vanilla Syrup', 'src' => null, 'type' => 'I', 'category' => 'SYR', 'current_price' => 0, 'unit' => 20],
             ['name' => 'Coconut Syrup', 'src' => null, 'type' => 'I', 'category' => 'SYR', 'current_price' => 0, 'unit' => 20],
-            ['name' => 'Lavender Syrup', 'src' => null, 'type' => 'I', 'category' => 'SYR', 'current_price' => 0, 'unit' => 10],
+            ['name' => 'Lavender Syrup', 'src' => null, 'type' => 'I', 'category' => 'SYR', 'current_price' => 0.8, 'unit' => 10],
             ['name' => 'Chai Tea', 'src' => null, 'type' => 'I', 'category' => 'BAS', 'current_price' => 0, 'unit' => 20],
             ['name' => 'Peach Tea Bag', 'src' => null, 'type' => 'I', 'category' => 'BAS', 'current_price' => 0, 'unit' => 1],
-            ['name' => 'Black Tea Bag', 'src' => null, 'type' => 'I', 'category' => 'BAS', 'current_price' => 0, 'unit' => 1],
+            ['name' => 'Black Tea Bag', 'src' => null, 'type' => 'I', 'category' => 'BAS', 'current_price' => 1.2, 'unit' => 1],
 
             // Késztermékek
             
