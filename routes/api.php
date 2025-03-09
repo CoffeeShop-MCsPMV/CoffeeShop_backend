@@ -25,6 +25,7 @@ Route::get('/by-type', [ProductController::class, 'getProductsByType']);
 Route::get('/by-category', [ProductController::class, 'getProductsByCategory']);
 Route::post('/orders', [OrderController::class, 'store']);
 Route::get('/top-products', [ContentController::class, 'topProducts']);
+Route::get('/orders/{order_id}', [OrderController::class, 'show']);
 // Route::post('/register', [RegisteredUserController::class, 'store']);
 // Route::post('/login', [AuthenticatedSessionController::class, 'store']);
 
@@ -54,7 +55,7 @@ Route::middleware(['auth:sanctum', Admin::class])
         Route::get('/orders', [OrderController::class, 'index']);
         Route::post('/users', [UserController::class, 'store']);
         Route::delete('/users/{id}', [UserController::class, 'destroy']);
-        Route::get('/orders/{order_id}', [OrderController::class, 'show']);
+      
         Route::put('/orders/{order_id}', [OrderController::class, 'update']);
         Route::post('/products', [ProductController::class, 'store']);
         Route::get('/products/{id}', [ProductController::class, 'show']);

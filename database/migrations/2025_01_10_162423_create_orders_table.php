@@ -14,7 +14,7 @@ return new class extends Migration
             $table->unsignedBigInteger('user');  
             $table->timestamp('date')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->decimal('total_cost', 10, 2)->default(0);
-            $table->string('order_status')->default('REC');
+            $table->char('order_status',3)->default('REC');
             $table->timestamps();
                    
             $table->foreign('user')->references('id')->on('users')->onDelete('cascade');
