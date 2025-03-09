@@ -92,6 +92,7 @@ class ContentController extends Controller
        products.src
         FROM contents
         JOIN products ON contents.product_id = products.product_id
+        WHERE type='F'
         GROUP BY contents.product_id, products.src
         ORDER BY total_count DESC
         LIMIT 5;
