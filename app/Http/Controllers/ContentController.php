@@ -11,23 +11,24 @@ use Illuminate\Support\Facades\DB;
 
 class ContentController extends Controller
 {
-    public function addType($product){
-        $type=Product::where('product_id',$product)->value('type');
+    public function addType($product)
+    {
+        $type = Product::where('product_id', $product)->value('type');
         return $type;
-
     }
 
-    public function costCounter($product, $cup,){
-        $price=Product::where('product_id',$product)->value('current_price');
-        $orderItem=OrderItem::where('cup_id',$cup);
+    public function costCounter($product, $cup,)
+    {
+        $price = Product::where('product_id', $product)->value('current_price');
+        $orderItem = OrderItem::where('cup_id', $cup);
         $orderItem->item_price += $price;
-        $orderItem->save(); 
+        $orderItem->save();
 
-        $order=Order::where('order_id',($orderItem->value('order_id')));
+        $order = Order::where('order_id', ($orderItem->value('order_id')));
         $order->total_cost += $price;
         $order->save();
     }
-    
+
     public function show($cup_id, $product_id)
     {
         $cup_content = Content::where('cup_id', $cup_id)
@@ -86,20 +87,14 @@ class ContentController extends Controller
     public function topProducts()
     {
         $topItems = DB::select("
-            SELECT 
-                contents.product_id, 
-                COUNT(*) AS total_count
-            FROM 
-                contents
-            JOIN 
-                products ON contents.product_id = products.product_id
-            WHERE 
-                products.type = 'F'
-            GROUP BY 
-                contents.product_id
-            ORDER BY 
-                total_count DESC
-            LIMIT 5
+        SELECT contents.product_id, 
+       COUNT(*) AS total_count, 
+       products.src
+        FROM contents
+        JOIN products ON contents.product_id = products.product_id
+        GROUP BY contents.product_id, products.src
+        ORDER BY total_count DESC
+        LIMIT 5;
         ");
         return response()->json($topItems);
     }
