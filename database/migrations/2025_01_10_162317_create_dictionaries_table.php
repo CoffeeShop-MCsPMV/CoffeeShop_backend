@@ -37,6 +37,7 @@ return new class extends Migration
         
         DB::table('dictionaries')->insert([
             ['code' => 'BAS', 'description' => 'Base Ingredients', 'reference' => 'I'],
+            ['code' => 'ICE', 'description' => 'Ice', 'reference' => 'I'],
             ['code' => 'MIL', 'description' => 'Milks', 'reference' => 'I'],
             ['code' => 'SWE', 'description' => 'Sweeteners', 'reference' => 'I'],
             ['code' => 'SYR', 'description' => 'Flavored Syrups', 'reference' => 'I'],
