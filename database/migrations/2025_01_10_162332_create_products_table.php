@@ -88,7 +88,7 @@ return new class extends Migration
             ['name' => 'Strawberry Lemonade', 'src' => 'images/strawberry_lemonade.png', 'type' => 'F', 'category' => 'IDR', 'current_price' => 3.00, 'unit' => 300],
             ['name' => 'Blueberry Lemonade', 'src' => 'images/blueberry_lemonade.png', 'type' => 'F', 'category' => 'IDR', 'current_price' => 3.20, 'unit' => 300],
             ['name' => 'Lavender Lemonade', 'src' => 'images/lavender_lemonade.png', 'type' => 'F', 'category' => 'IDR', 'current_price' => 3.50, 'unit' => 300],
-            ['name' => 'Berry Punch', 'src' => 'images/berry_punch.png', 'type' => 'F', 'category' => 'HOD', 'current_price' => 4.00, 'unit' => 350],
+            ['name' => 'Berry Punch', 'src' => 'images/berry_punch(1).png', 'type' => 'F', 'category' => 'HOD', 'current_price' => 4.00, 'unit' => 350],
             ['name' => 'Citrus Punch', 'src' => 'images/citrus_punch.png', 'type' => 'F', 'category' => 'HOD', 'current_price' => 3.50, 'unit' => 300],
             ['name' => 'Peach Punch', 'src' => 'images/peach_punch.png', 'type' => 'F', 'category' => 'HOD', 'current_price' => 3.70, 'unit' => 300],
         ]);
