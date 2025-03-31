@@ -11,7 +11,7 @@ return new class extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id('order_id');  
-            $table->unsignedBigInteger('user');  
+            $table->unsignedBigInteger('user')->nullable(); 
             $table->timestamp('date')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->decimal('total_cost', 10, 2)->default(0);
             $table->char('order_status',3)->default('REC');
@@ -20,6 +20,8 @@ return new class extends Migration
             $table->foreign('user')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('order_status')->references('code')->on('dictionaries')->onDelete('cascade');
         });
+
+        
     }
 
     public function down(): void
