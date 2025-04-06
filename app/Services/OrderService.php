@@ -10,11 +10,13 @@ use App\Models\Product;
 
 class OrderService
 {
-    public function createOrderWithItems(int $userId, array $products)
+    public function createOrderWithItems(?int $userId, array $products)
     {
         DB::beginTransaction();
         try {
-            $order = Order::create(['user' => $userId]);
+            // Új rendelés létrehozása
+            $order = Order::create(['user' => $userId ?? null]);
+
             $contents = [];
             foreach ($products as $productId) {
                 if (is_array($productId)) {

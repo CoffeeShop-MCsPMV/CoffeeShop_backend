@@ -59,7 +59,7 @@ class ProductController extends Controller
         $product->delete();
     }
 
-  public function getProductsByType(Request $request)
+  public function getAvailableProductsByType(Request $request)
 {
     // Paraméter kinyerése az API kérésből
     $type = $request->input('type');
@@ -73,13 +73,14 @@ class ProductController extends Controller
     $products = DB::table('products')
         ->select('product_id','name','src', 'current_price', 'category', 'is_available')
         ->where('type', '=', $type)
+        ->where('is_available', 1)
         ->orderBy('name', 'asc')
         ->get();
 
     return response()->json($products, 200);
 }
 
-public function getProductsByCategory(Request $request)
+public function getAvailableProductsByCategory(Request $request)
 {
     // Paraméter kinyerése az API kérésből
     $category = $request->input('category');
@@ -93,6 +94,7 @@ public function getProductsByCategory(Request $request)
     $products = DB::table('products')
         ->select('product_id','name','src', 'current_price', 'type', 'is_available')
         ->where('category', '=', $category)
+        ->where('is_available', 1)
         ->orderBy('name', 'asc')
         ->get();
 

@@ -21,8 +21,8 @@ Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
 });
 
 Route::get('/products', [ProductController::class, 'index']);
-Route::get('/by-type', [ProductController::class, 'getProductsByType']);
-Route::get('/by-category', [ProductController::class, 'getProductsByCategory']);
+Route::get('/by-type', [ProductController::class, 'getAvailableProductsByType']);
+Route::get('/by-category', [ProductController::class, 'getAvailableProductsByCategory']);
 Route::post('/orders', [OrderController::class, 'store']);
 Route::get('/top-products', [ContentController::class, 'topProducts']);
 Route::get('/orders/{order_id}', [OrderController::class, 'show']);
@@ -32,6 +32,8 @@ Route::middleware(['auth:sanctum'])
     ->group(function () {
         Route::get('/users/{id}', [UserController::class, 'show']);
         Route::patch('/user', [UserController::class, 'patch']);
+        // Route::post('/orders', [OrderController::class, 'store']);
+        Route::patch('/order/{order_id}',[OrderController::class, 'patch']);
         Route::get('/user-latest-order', [OrderController::class, 'userLatestOrder']);
         Route::get('/users/{id}/orders', [UserController::class, 'getUserOrders']);
         Route::get('/contents/{cup_id}/{product_id}', [ContentController::class, 'show']);

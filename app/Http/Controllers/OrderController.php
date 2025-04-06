@@ -31,14 +31,14 @@ class OrderController extends Controller
     {
         $userId = $request->userId;
     
-        if (is_null($userId)) {
-            $guestUser = User::where('email', 'guestuser@example.com')->first();
-            if ($guestUser) {
-                $userId = $guestUser->id;
-            } else {
-                return response()->json(['error' => 'Guest user not found'], 404);
-            }
-        }
+        // if (is_null($userId)) {
+        //     $guestUser = User::where('email', 'guestuser@example.com')->first();
+        //     if ($guestUser) {
+        //         $userId = $guestUser->id;
+        //     } else {
+        //         return response()->json(['error' => 'Guest user not found'], 404);
+        //     }
+        // }
     
         $order = $this->orderService->createOrderWithItems(
             $userId,
@@ -59,6 +59,26 @@ class OrderController extends Controller
         $record->fill($request->all());
         $record->save();
     }
+
+    public function patch(Request $request, $order_id)
+    {
+        // Az aktuálisan bejelentkezett felhasználó id-ja
+        $userId = Auth::id();
+    
+        // A rendelés lekérése az ID alapján
+        $order = Order::find($order_id);
+    
+        if (!$order) {
+            return response()->json(['error' => 'Order not found'], 404);
+        }
+    
+        // Frissítjük a rendelés user_id-ját az aktuális bejelentkezett felhasználóra
+        $order->user = $userId;
+        $order->save();
+    
+        return response()->json(['message' => 'Order updated successfully'], 200);
+    }
+
 
     public function destroy($order_id)
     {
