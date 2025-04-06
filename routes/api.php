@@ -51,6 +51,7 @@ Route::middleware(['auth:sanctum'])
 Route::middleware(['auth:sanctum', Admin::class])
     ->group(function () {
         Route::get('/users', [UserController::class, 'index']);
+        Route::patch('/users/{id}', [UserController::class, 'update']);
         Route::get('/orders', [OrderController::class, 'index']);
         Route::post('/users', [UserController::class, 'store']);
         Route::delete('/users/{id}', [UserController::class, 'destroy']);
