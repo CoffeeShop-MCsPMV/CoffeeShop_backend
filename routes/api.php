@@ -26,16 +26,12 @@ Route::get('/by-category', [ProductController::class, 'getProductsByCategory']);
 Route::post('/orders', [OrderController::class, 'store']);
 Route::get('/top-products', [ContentController::class, 'topProducts']);
 Route::get('/orders/{order_id}', [OrderController::class, 'show']);
-// Route::post('/register', [RegisteredUserController::class, 'store']);
-// Route::post('/login', [AuthenticatedSessionController::class, 'store']);
 
 
 Route::middleware(['auth:sanctum'])
     ->group(function () {
         Route::get('/users/{id}', [UserController::class, 'show']);
-        //Route::put('/users/{id}', [UserController::class, 'update']);
         Route::patch('/user', [UserController::class, 'patch']);
-        // Route::post('/orders', [OrderController::class, 'store']);
         Route::get('/user-latest-order', [OrderController::class, 'userLatestOrder']);
         Route::get('/users/{id}/orders', [UserController::class, 'getUserOrders']);
         Route::get('/contents/{cup_id}/{product_id}', [ContentController::class, 'show']);
@@ -56,7 +52,6 @@ Route::middleware(['auth:sanctum', Admin::class])
         Route::get('/orders', [OrderController::class, 'index']);
         Route::post('/users', [UserController::class, 'store']);
         Route::delete('/users/{id}', [UserController::class, 'destroy']);
-      
         Route::put('/orders/{order_id}', [OrderController::class, 'update']);
         Route::post('/products', [ProductController::class, 'store']);
         Route::get('/products/{id}', [ProductController::class, 'show']);
@@ -69,10 +64,7 @@ Route::middleware(['auth:sanctum', Admin::class])
         Route::get('/product_recipes/ingredients-of-product/{productId}', [ProductRecipeController::class, 'ingredientsOfProduct']);
         Route::get('/contents-of-cup', [ContentController::class, 'contentsOfCup']);
         Route::get('/monthly-income', [OrderController::class, 'monthlyIncome']);
-  
         Route::get('/usersBy-type', [UserController::class, 'usersByType']);
-       
-        
         Route::get('/by-status', [OrderController::class, 'getOrdersByStatus']);
         Route::get('/ready-orders', [UserController::class, 'getUsersWithReadyOrders']);
         Route::get('/subscribed', [UserController::class, 'suscribedUsers']);
