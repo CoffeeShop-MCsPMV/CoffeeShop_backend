@@ -28,6 +28,9 @@ Route::get('/top-products', [ContentController::class, 'topProducts']);
 Route::get('/orders/{order_id}', [OrderController::class, 'show']);
 
 
+
+
+
 Route::middleware(['auth:sanctum'])
     ->group(function () {
         Route::get('/users/{id}', [UserController::class, 'show']);
@@ -71,4 +74,6 @@ Route::middleware(['auth:sanctum', Admin::class])
         Route::get('/by-status', [OrderController::class, 'getOrdersByStatus']);
         Route::get('/ready-orders', [UserController::class, 'getUsersWithReadyOrders']);
         Route::get('/subscribed', [UserController::class, 'suscribedUsers']);
+        Route::patch('/orders/{orderId}/status', [OrderController::class, 'updateOrderStatus']);
+        Route::get('/active-contents', [OrderController::class, 'getActiveOrdersWithContents']);
     });
