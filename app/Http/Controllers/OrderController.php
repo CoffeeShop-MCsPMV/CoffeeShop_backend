@@ -31,7 +31,7 @@ class OrderController extends Controller
     public function store(Request $request)
     {
         $userId = $request->userId;
-    
+
         // if (is_null($userId)) {
         //     $guestUser = User::where('email', 'guestuser@example.com')->first();
         //     if ($guestUser) {
@@ -40,15 +40,15 @@ class OrderController extends Controller
         //         return response()->json(['error' => 'Guest user not found'], 404);
         //     }
         // }
-    
+
         $order = $this->orderService->createOrderWithItems(
             $userId,
             $request->products
         );
-    
+
         return response()->json(['order_id' => $order->order_id], 201);
     }
-    
+
     public function update(Request $request, $order_id)
     {
         $record = Order::find($order_id);
@@ -65,18 +65,18 @@ class OrderController extends Controller
     {
         // Az aktuálisan bejelentkezett felhasználó id-ja
         $userId = Auth::id();
-    
+
         // A rendelés lekérése az ID alapján
         $order = Order::find($order_id);
-    
+
         if (!$order) {
             return response()->json(['error' => 'Order not found'], 404);
         }
-    
+
         // Frissítjük a rendelés user_id-ját az aktuális bejelentkezett felhasználóra
         $order->user = $userId;
         $order->save();
-    
+
         return response()->json(['message' => 'Order updated successfully'], 200);
     }
 
@@ -95,30 +95,30 @@ class OrderController extends Controller
     public function updateOrderStatus(Request $request, $orderId)
     {
         $order = Order::find($orderId);
-    
+
         if (!$order) {
             return response()->json(['message' => 'Order not found'], 404);
         }
-    
+
         // Érvényes státuszok sorrendje
         $statusOrder = ['ACC', 'REC', 'PRO', 'COM', 'PUP', 'CAN'];
-    
+
         // Ha az új státusz nem szerepel a választható státuszok között
         if (!in_array($request->status, $statusOrder)) {
             return response()->json(['message' => 'Invalid status'], 400);
         }
-    
+
         // Meghatározzuk a következő státuszt
         $currentIndex = array_search($request->status, $statusOrder);
         $nextStatus = $currentIndex < count($statusOrder) - 1 ? $statusOrder[$currentIndex + 1] : $request->status;
-    
+
         // Frissítjük a státuszt
         $order->order_status = $nextStatus;
         $order->save();
-    
+
         return response()->json(['message' => 'Status updated successfully', 'new_status' => $nextStatus]);
     }
-    
+
 
     public function monthlyIncome()
     {
@@ -161,30 +161,30 @@ class OrderController extends Controller
     }
 
     public function userLatestOrder()
-{
-    try {
-        $user = Auth::user();
+    {
+        try {
+            $user = Auth::user();
 
-        if (!$user) {
-            return response()->json(['error' => 'User not authenticated'], 401);
+            if (!$user) {
+                return response()->json(['error' => 'User not authenticated'], 401);
+            }
+
+            $lastOrderId = Order::where('user', $user->id)
+                ->latest('created_at')
+                ->value('order_id');
+
+            if (!$lastOrderId) {
+                return response()->json(['message' => 'No orders found'], 404);
+            }
+
+            return response()->json(['order_id' => $lastOrderId], 200);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Something went wrong', 'details' => $e->getMessage()], 500);
         }
-
-        $lastOrderId = Order::where('user', $user->id)
-            ->latest('created_at')
-            ->value('order_id');
-
-        if (!$lastOrderId) {
-            return response()->json(['message' => 'No orders found'], 404);
-        }
-
-        return response()->json(['order_id' => $lastOrderId], 200);
-    } catch (\Exception $e) {
-        return response()->json(['error' => 'Something went wrong', 'details' => $e->getMessage()], 500);
     }
-}
 
-public function getUserOrdersProduct($orderId)
-    {   
+    public function getUserOrdersProduct($orderId)
+    {
         $sql = "
         SELECT p.name, o.order_id
         FROM orders o
@@ -201,7 +201,7 @@ public function getUserOrdersProduct($orderId)
         ]);
     }
 
-    
+
 
     public function getActiveOrdersWithContents(): JsonResponse
     {
@@ -209,74 +209,80 @@ public function getUserOrdersProduct($orderId)
             SELECT 
                 o.order_id,
                 o.order_status,
-                c.cup_id,
+                oi.cup_id,
                 c.product_id,
+                c.product_type,
                 p.name AS product_name,
+                pr.ingredient,
                 ing.name AS ingredient_name,
                 pr.quantity
-            FROM 
-                orders o
-            JOIN 
-                order_items oi ON o.order_id = oi.order_id
-            JOIN 
-                contents c ON oi.cup_id = c.cup_id
-            LEFT JOIN 
-                products p ON c.product_id = p.product_id
-            LEFT JOIN 
-                product_recipes pr ON c.product_id = pr.product
-            LEFT JOIN 
-                products ing ON pr.ingredient = ing.product_id
-            WHERE 
-                o.order_status IN ('Acc', 'Rec', 'Pro', 'Com')
-            ORDER BY 
-                o.order_id,
-                oi.cup_id
+            FROM orders o
+            JOIN order_items oi ON o.order_id = oi.order_id
+            JOIN contents c ON oi.cup_id = c.cup_id
+            LEFT JOIN products p ON c.product_id = p.product_id
+            LEFT JOIN product_recipes pr ON c.product_id = pr.product
+            LEFT JOIN products ing ON pr.ingredient = ing.product_id
+            WHERE o.order_status IN ('Acc', 'Rec', 'Pro', 'Com')
+            ORDER BY o.order_id, oi.cup_id
         ";
-    
+
         $rawResults = DB::select($query);
-    
-        // Átalakítás strukturált JSON-né: order_id -> cup_id -> product + ingredients
-        $structured = [];
-    
+
+        $cupsGrouped = [];
+
         foreach ($rawResults as $row) {
-            $orderId = $row->order_id;
-            $cupId = $row->cup_id;
-    
-            // Inicializálás
+            $cupsGrouped[$row->cup_id][] = $row;
+        }
+
+        $structured = [];
+
+        foreach ($cupsGrouped as $cupId => $rows) {
+            $firstRow = $rows[0];
+            $orderId = $firstRow->order_id;
+
             if (!isset($structured[$orderId])) {
                 $structured[$orderId] = [
                     'order_id' => $orderId,
-                    'order_status' => $row->order_status, // Itt hozzáadjuk az order_status-t
+                    'order_status' => $firstRow->order_status,
                     'cups' => [],
                 ];
             }
-    
-            if (!isset($structured[$orderId]['cups'][$cupId])) {
-                $structured[$orderId]['cups'][$cupId] = [
-                    'cup_id' => $cupId,
-                    'product_id' => $row->product_id,
-                    'product_name' => $row->product_name,
-                    'ingredients' => [],
-                ];
+
+            $cup = [
+                'cup_id' => $cupId,
+                'product_id' => null,
+                'product_name' => null,
+                'ingredients' => [],
+            ];
+
+            if ($firstRow->product_type === 'F') {
+                // Késztermék: hozzávalók a receptből
+                $cup['product_id'] = $firstRow->product_id;
+                $cup['product_name'] = $firstRow->product_name;
+
+                foreach ($rows as $row) {
+                    if ($row->ingredient_name) {
+                        $cup['ingredients'][] = [
+                            'name' => $row->ingredient_name,
+                            'quantity' => $row->quantity,
+                        ];
+                    }
+                }
+            } elseif ($firstRow->product_type === 'I') {
+                // Alapanyagként szerepel: soronkénti összetevők
+                foreach ($rows as $row) {
+                    $cup['ingredients'][] = [
+                        'name' => $row->product_name,
+                        'quantity' => 1, // ha van külön quantity meződ a contents táblában, ide is be lehet hozni
+                    ];
+                }
             }
-    
-            // Hozzávaló hozzáadása, ha van
-            if ($row->ingredient_name) {
-                $structured[$orderId]['cups'][$cupId]['ingredients'][] = [
-                    'name' => $row->ingredient_name,
-                    'quantity' => $row->quantity,
-                ];
-            }
+
+            $structured[$orderId]['cups'][] = $cup;
         }
-    
-        // Az asszociatív tömb átalakítása indexelt tömbbé a cups miatt
-        $final = array_values(array_map(function ($order) {
-            $order['cups'] = array_values($order['cups']);
-            return $order;
-        }, $structured));
-    
+
+        $final = array_values($structured);
+
         return response()->json($final);
     }
-    
-
 }
