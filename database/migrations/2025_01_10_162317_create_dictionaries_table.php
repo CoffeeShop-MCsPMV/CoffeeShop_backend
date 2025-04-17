@@ -36,6 +36,7 @@ return new class extends Migration
         ]);
         
         DB::table('dictionaries')->insert([
+            ['code' => 'COR', 'description' => 'Core', 'reference' => 'I'],
             ['code' => 'BAS', 'description' => 'Base Ingredients', 'reference' => 'I'],
             ['code' => 'ICE', 'description' => 'Ice', 'reference' => 'I'],
             ['code' => 'MIL', 'description' => 'Milks', 'reference' => 'I'],

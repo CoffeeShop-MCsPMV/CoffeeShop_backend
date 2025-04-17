@@ -25,8 +25,8 @@ return new class extends Migration
 
         DB::table('products')->insert([
             // Összetevők
-            ['name' => 'Ground Coffee', 'src' => null, 'type' => 'I', 'category' => 'BAS', 'current_price' => 0, 'unit' => 2],
-            ['name' => 'Water', 'src' => 'images/water.png', 'type' => 'I', 'category' => 'BAS', 'current_price' => 0, 'unit' => 10],
+            ['name' => 'Ground Coffee', 'src' => null, 'type' => 'I', 'category' => 'COR', 'current_price' => 0, 'unit' => 2],
+            ['name' => 'Water', 'src' => 'images/water.png', 'type' => 'I', 'category' => 'COR', 'current_price' => 0, 'unit' => 10],
             ['name' => 'Milk', 'src' => 'images/milk.png', 'type' => 'I', 'category' => 'MIL', 'current_price' => 0, 'unit' => 100],
             ['name' => 'Whipped Cream', 'src' =>'images/whipped.png', 'type' => 'I', 'category' => 'TOP', 'current_price' => 0, 'unit' => 30],
             // ['name' => 'Ice', 'type' => 'I', 'category' => '', 'current_price' => 0, 'unit' => 200],
@@ -38,8 +38,8 @@ return new class extends Migration
             ['name' => 'Coconut Syrup', 'src' => 'images/coconutSyr.png', 'type' => 'I', 'category' => 'SYR', 'current_price' => 0, 'unit' => 20],
             ['name' => 'Lavender Syrup', 'src' => 'images/levanderSyr.png', 'type' => 'I', 'category' => 'SYR', 'current_price' => 0.8, 'unit' => 10],
             ['name' => 'Chai Tea', 'src' => 'images/chaiTea.png', 'type' => 'I', 'category' => 'BAS', 'current_price' => 0, 'unit' => 20],
-            ['name' => 'Peach Tea Bag', 'src' => 'images/peachTea.png', 'type' => 'I', 'category' => 'BAS', 'current_price' => 0, 'unit' => 1],
-            ['name' => 'Black Tea Bag', 'src' => 'images/blackTea.png', 'type' => 'I', 'category' => 'BAS', 'current_price' => 1.2, 'unit' => 1],
+            ['name' => 'Peach Tea Bag', 'src' => 'images/peachTea.png', 'type' => 'I', 'category' => 'COR', 'current_price' => 0, 'unit' => 1],
+            ['name' => 'Black Tea Bag', 'src' => 'images/blackTea.png', 'type' => 'I', 'category' => 'COR', 'current_price' => 1.2, 'unit' => 1],
 
             // Késztermékek
             
@@ -110,7 +110,7 @@ return new class extends Migration
             ['name' => 'Lemon Juice', 'src' => null, 'type' => 'I', 'category' => 'FRU', 'current_price' => 0, 'unit' => 10],
             ['name' => 'Orange Juice', 'src' => null, 'type' => 'I', 'category' => 'FRU', 'current_price' => 0, 'unit' => 50],
             ['name' => 'Sugar Syrup', 'src' => null, 'type' => 'I', 'category' => 'SWE', 'current_price' => 0, 'unit' => 10],
-            ['name' => 'Green Tea Bag', 'src' =>'images/greenTea.png', 'type' => 'I', 'category' => 'BAS', 'current_price' => 0, 'unit' => 1],
+            ['name' => 'Green Tea Bag', 'src' =>'images/greenTea.png', 'type' => 'I', 'category' => 'COR', 'current_price' => 0, 'unit' => 1],
             ['name' => 'Almond Milk', 'src' => 'images/almondMilk.png', 'type' => 'I', 'category' => 'MIL', 'current_price' => 0, 'unit' => 100],
             ['name' => 'Oat Milk', 'src' => 'images/OatMilk.png', 'type' => 'I', 'category' => 'MIL', 'current_price' => 0, 'unit' => 100],
 
