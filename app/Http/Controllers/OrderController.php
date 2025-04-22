@@ -183,23 +183,32 @@ class OrderController extends Controller
         }
     }
 
-    public function getUserOrdersProduct($orderId)
+    public function UserOrdersProduct()
     {
+        $user = Auth::user(); 
+        $userId=$user->id;
+    
         $sql = "
-        SELECT p.name, o.order_id
+       SELECT 
+             o.order_id,
+            oi.cup_id,
+            GROUP_CONCAT(p.name ORDER BY p.name ASC SEPARATOR ', ') AS product
         FROM orders o
         JOIN order_items oi ON o.order_id = oi.order_id
         JOIN contents c ON oi.cup_id = c.cup_id
         JOIN products p ON c.product_id = p.product_id
-        WHERE o.order_id = :orderId;
-        ";
+        WHERE o.user = :userId
+        GROUP BY o.order_id, oi.cup_id
+        ORDER BY o.order_id DESC, oi.cup_id;";
 
-        $orders = DB::select($sql, ['orderId' => $orderId]);
-
+    
+        $orders = DB::select($sql, ['userId' => $userId]);
+    
         return response()->json([
             'orders' => $orders
         ]);
     }
+    
 
 
 

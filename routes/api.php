@@ -31,6 +31,7 @@ Route::get('/orders/{order_id}', [OrderController::class, 'show']);
 
 
 
+
 Route::middleware(['auth:sanctum'])
     ->group(function () {
         Route::get('/users/{id}', [UserController::class, 'show']);
@@ -47,7 +48,8 @@ Route::middleware(['auth:sanctum'])
         Route::post('/logout', [AuthenticatedSessionController::class, 'destroy']);
         Route::get('/most-purchased-product', [UserController::class, 'getMostPurchasedProduct']);
         Route::get('/order-count', [UserController::class, 'countUserOrders']);
-        Route::get('/orders/{orderId}/products', [OrderController::class, 'getUserOrdersProduct']);
+        Route::get('/user-orders-product', [OrderController::class, 'UserOrdersProduct']);
+
         
     });
 
