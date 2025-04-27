@@ -156,6 +156,7 @@ class OrderController extends Controller
         $sql = "
        SELECT 
              o.order_id,
+             o.total_cost,
             oi.cup_id,
             GROUP_CONCAT(p.name ORDER BY p.name ASC SEPARATOR ', ') AS product
         FROM orders o
@@ -163,7 +164,7 @@ class OrderController extends Controller
         JOIN contents c ON oi.cup_id = c.cup_id
         JOIN products p ON c.product_id = p.product_id
         WHERE o.user = :userId
-        GROUP BY o.order_id, oi.cup_id
+        GROUP BY o.order_id, o.total_cost, oi.cup_id
         ORDER BY o.order_id DESC, oi.cup_id;";
 
     
