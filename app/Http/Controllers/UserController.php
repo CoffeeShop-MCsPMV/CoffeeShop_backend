@@ -116,7 +116,7 @@ class UserController extends Controller
         SELECT *
         FROM users
         JOIN orders ON users.id = orders.user
-        WHERE orders.order_status = 'ABC'
+        WHERE orders.order_status = 'COM'
         "
         );
 

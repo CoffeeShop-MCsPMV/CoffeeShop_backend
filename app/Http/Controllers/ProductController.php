@@ -22,7 +22,7 @@ class ProductController extends Controller
             'category' => 'sometimes|string|size:3', 
             'is_available' => 'sometimes|boolean',
             'current_price' => 'sometimes|numeric|min:0', 
-            'unit_ml' => 'sometimes|integer|min:0',
+            'unit' => 'sometimes|integer|min:0',
         ]);
     
         $record = new Product();
