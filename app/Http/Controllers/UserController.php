@@ -29,12 +29,12 @@ class UserController extends Controller
         return User::find($id);
     }
 
-    // public function update(Request $request, $id)
-    // {
-    //     $record = User::find($id);
-    //     $record->fill($request->all());
-    //     $record->save();
-    // }
+    public function update(Request $request, $id)
+    {
+        $record = User::find($id);
+        $record->fill($request->all());
+        $record->save();
+    }
 
     public function patch(Request $request)
     {

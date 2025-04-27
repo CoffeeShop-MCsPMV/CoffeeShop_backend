@@ -32,15 +32,6 @@ class OrderController extends Controller
     {
         $userId = $request->userId;
 
-        // if (is_null($userId)) {
-        //     $guestUser = User::where('email', 'guestuser@example.com')->first();
-        //     if ($guestUser) {
-        //         $userId = $guestUser->id;
-        //     } else {
-        //         return response()->json(['error' => 'Guest user not found'], 404);
-        //     }
-        // }
-
         $order = $this->orderService->createOrderWithItems(
             $userId,
             $request->products
@@ -63,17 +54,14 @@ class OrderController extends Controller
 
     public function patch(Request $request, $order_id)
     {
-        // Az aktuálisan bejelentkezett felhasználó id-ja
         $userId = Auth::id();
 
-        // A rendelés lekérése az ID alapján
         $order = Order::find($order_id);
 
         if (!$order) {
             return response()->json(['error' => 'Order not found'], 404);
         }
 
-        // Frissítjük a rendelés user_id-ját az aktuális bejelentkezett felhasználóra
         $order->user = $userId;
         $order->save();
 
@@ -100,19 +88,17 @@ class OrderController extends Controller
             return response()->json(['message' => 'Order not found'], 404);
         }
 
-        // Érvényes státuszok sorrendje
         $statusOrder = ['ACC', 'REC', 'PRO', 'COM', 'PUP', 'CAN'];
 
-        // Ha az új státusz nem szerepel a választható státuszok között
         if (!in_array($request->status, $statusOrder)) {
             return response()->json(['message' => 'Invalid status'], 400);
         }
 
-        // Meghatározzuk a következő státuszt
+        
         $currentIndex = array_search($request->status, $statusOrder);
         $nextStatus = $currentIndex < count($statusOrder) - 1 ? $statusOrder[$currentIndex + 1] : $request->status;
 
-        // Frissítjük a státuszt
+    
         $order->order_status = $nextStatus;
         $order->save();
 
@@ -120,27 +106,6 @@ class OrderController extends Controller
     }
 
 
-    // public function monthlyIncome()
-    // {
-    //     $income = DB::select(
-    //         "
-    //         SELECT 
-    //                 YEAR(date) AS ev,
-    //                 MONTH(date) AS honap,
-    //                 SUM(total_cost) AS havi_bevetel
-    //             FROM 
-    //                 orders
-    //             WHERE 
-    //                 YEAR(date) = YEAR(CURDATE()) 
-    //             GROUP BY 
-    //                 YEAR(date), MONTH(date)
-    //             ORDER BY 
-    //                 MONTH(date);
-    //        "
-    //     );
-
-    //     return response()->json($income);
-    // }
 
     public function getOrdersByStatus(Request $request)
     {
@@ -265,7 +230,7 @@ class OrderController extends Controller
             ];
 
             if ($firstRow->product_type === 'F') {
-                // Késztermék: hozzávalók a receptből
+                
                 $cup['product_id'] = $firstRow->product_id;
                 $cup['product_name'] = $firstRow->product_name;
 
@@ -278,11 +243,10 @@ class OrderController extends Controller
                     }
                 }
             } elseif ($firstRow->product_type === 'I') {
-                // Alapanyagként szerepel: soronkénti összetevők
+                
                 foreach ($rows as $row) {
                     $cup['ingredients'][] = [
                         'name' => $row->product_name,
-                        'quantity' => 1, // ha van külön quantity meződ a contents táblában, ide is be lehet hozni
                     ];
                 }
             }

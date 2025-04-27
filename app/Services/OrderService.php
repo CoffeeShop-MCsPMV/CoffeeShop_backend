@@ -14,7 +14,7 @@ class OrderService
     {
         DB::beginTransaction();
         try {
-            // Új rendelés létrehozása
+          
             $order = Order::create(['user' => $userId ?? null]);
 
             $contents = [];

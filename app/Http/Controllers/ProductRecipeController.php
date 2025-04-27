@@ -28,16 +28,16 @@ class ProductRecipeController extends Controller
             'quantity' => 'required|integer|min:1',
         ]);
 
-        // Lekérdezzük a termékek típusát
+        
         $productType = $this->ifProductType($validatedData['product']);
         $ingredientType = $this->ifProductType($validatedData['ingredient']);
 
-        // Ellenőrizzük a típusokat
+       
         if ($productType !== 'F' || $ingredientType !== 'I') {
             return response()->json(['error' => 'Invalid product or ingredient type'], 400);
         }
 
-        // Ha megfelelnek a típusok, mentjük az adatokat
+      
         $record = new ProductRecipe();
         $record->product = $validatedData['product'];
         $record->ingredient = $validatedData['ingredient'];

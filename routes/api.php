@@ -36,12 +36,10 @@ Route::middleware(['auth:sanctum'])
     ->group(function () {
         Route::get('/users/{id}', [UserController::class, 'show']);
         Route::patch('/user', [UserController::class, 'patch']);
-        // Route::post('/orders', [OrderController::class, 'store']);
         Route::patch('/order/{order_id}',[OrderController::class, 'patch']);
         Route::get('/user-latest-order', [OrderController::class, 'userLatestOrder']);
         Route::get('/users/{id}/orders', [UserController::class, 'getUserOrders']);
         Route::get('/contents/{cup_id}/{product_id}', [ContentController::class, 'show']);
-        Route::post('/contents', [ContentController::class, 'store']);
         Route::post('/order_items', [OrderItemController::class, 'store']);
         Route::get('/order_items', [OrderItemController::class, 'index']);
         Route::get('/last-cup/{order}',[OrderItemController::class, 'getLastCup']);
@@ -71,7 +69,6 @@ Route::middleware(['auth:sanctum', Admin::class])
         Route::put('/product-recipes/{product}/{ingredient}', [ProductRecipeController::class, 'update']);
         Route::get('/product_recipes/ingredients-of-product/{productId}', [ProductRecipeController::class, 'ingredientsOfProduct']);
         Route::get('/contents-of-cup', [ContentController::class, 'contentsOfCup']);
-        // Route::get('/monthly-income', [OrderController::class, 'monthlyIncome']);
         Route::get('/usersBy-type', [UserController::class, 'usersByType']);
         Route::get('/by-status', [OrderController::class, 'getOrdersByStatus']);
         Route::get('/ready-orders', [UserController::class, 'getUsersWithReadyOrders']);

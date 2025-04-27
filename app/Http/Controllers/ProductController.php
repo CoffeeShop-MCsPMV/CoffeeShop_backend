@@ -61,15 +61,12 @@ class ProductController extends Controller
 
   public function getAvailableProductsByType(Request $request)
 {
-    // Paraméter kinyerése az API kérésből
     $type = $request->input('type');
 
-    // Ellenőrzés, hogy a type paraméter érvényes-e
     if (!in_array($type, ['I', 'F'])) {
         return response()->json(['error' => 'Type is not find'], 400);
     }
 
-    // Query Builder lekérdezés
     $products = DB::table('products')
         ->select('product_id','name','src', 'current_price', 'category', 'is_available')
         ->where('type', '=', $type)
@@ -82,15 +79,13 @@ class ProductController extends Controller
 
 public function getAvailableProductsByCategory(Request $request)
 {
-    // Paraméter kinyerése az API kérésből
+    
     $category = $request->input('category');
 
-    // Ellenőrzés, hogy a type paraméter érvényes-e
     if (!in_array($category, ['COF', 'TEA', 'ICF', 'ICT', 'HOD', 'IDR', 'BAS', 'MIL', 'SYR', 'SWE', 'FRU', 'TOP', 'ICE'])) {
         return response()->json(['error' => 'Category is not find'], 400);
     }
-
-    // Query Builder lekérdezés
+    
     $products = DB::table('products')
         ->select('product_id','name','src', 'current_price', 'type', 'is_available')
         ->where('category', '=', $category)
