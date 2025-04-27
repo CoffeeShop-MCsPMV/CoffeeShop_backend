@@ -71,7 +71,7 @@ Route::middleware(['auth:sanctum', Admin::class])
         Route::put('/product-recipes/{product}/{ingredient}', [ProductRecipeController::class, 'update']);
         Route::get('/product_recipes/ingredients-of-product/{productId}', [ProductRecipeController::class, 'ingredientsOfProduct']);
         Route::get('/contents-of-cup', [ContentController::class, 'contentsOfCup']);
-        Route::get('/monthly-income', [OrderController::class, 'monthlyIncome']);
+        // Route::get('/monthly-income', [OrderController::class, 'monthlyIncome']);
         Route::get('/usersBy-type', [UserController::class, 'usersByType']);
         Route::get('/by-status', [OrderController::class, 'getOrdersByStatus']);
         Route::get('/ready-orders', [UserController::class, 'getUsersWithReadyOrders']);

@@ -120,27 +120,27 @@ class OrderController extends Controller
     }
 
 
-    public function monthlyIncome()
-    {
-        $income = DB::select(
-            "
-            SELECT 
-                    YEAR(date) AS ev,
-                    MONTH(date) AS honap,
-                    SUM(total_cost) AS havi_bevetel
-                FROM 
-                    orders
-                WHERE 
-                    YEAR(date) = YEAR(CURDATE()) 
-                GROUP BY 
-                    YEAR(date), MONTH(date)
-                ORDER BY 
-                    MONTH(date);
-           "
-        );
+    // public function monthlyIncome()
+    // {
+    //     $income = DB::select(
+    //         "
+    //         SELECT 
+    //                 YEAR(date) AS ev,
+    //                 MONTH(date) AS honap,
+    //                 SUM(total_cost) AS havi_bevetel
+    //             FROM 
+    //                 orders
+    //             WHERE 
+    //                 YEAR(date) = YEAR(CURDATE()) 
+    //             GROUP BY 
+    //                 YEAR(date), MONTH(date)
+    //             ORDER BY 
+    //                 MONTH(date);
+    //        "
+    //     );
 
-        return response()->json($income);
-    }
+    //     return response()->json($income);
+    // }
 
     public function getOrdersByStatus(Request $request)
     {
