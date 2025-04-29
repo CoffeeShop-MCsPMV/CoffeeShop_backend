@@ -94,11 +94,11 @@ class OrderController extends Controller
             return response()->json(['message' => 'Invalid status'], 400);
         }
 
-        
+
         $currentIndex = array_search($request->status, $statusOrder);
         $nextStatus = $currentIndex < count($statusOrder) - 1 ? $statusOrder[$currentIndex + 1] : $request->status;
 
-    
+
         $order->order_status = $nextStatus;
         $order->save();
 
@@ -150,9 +150,9 @@ class OrderController extends Controller
 
     public function UserOrdersProduct()
     {
-        $user = Auth::user(); 
-        $userId=$user->id;
-    
+        $user = Auth::user();
+        $userId = $user->id;
+
         $sql = "
        SELECT 
              o.order_id,
@@ -167,14 +167,14 @@ class OrderController extends Controller
         GROUP BY o.order_id, o.total_cost, oi.cup_id
         ORDER BY o.order_id DESC, oi.cup_id;";
 
-    
+
         $orders = DB::select($sql, ['userId' => $userId]);
-    
+
         return response()->json([
             'orders' => $orders
         ]);
     }
-    
+
 
 
 
@@ -231,7 +231,7 @@ class OrderController extends Controller
             ];
 
             if ($firstRow->product_type === 'F') {
-                
+
                 $cup['product_id'] = $firstRow->product_id;
                 $cup['product_name'] = $firstRow->product_name;
 
@@ -244,7 +244,7 @@ class OrderController extends Controller
                     }
                 }
             } elseif ($firstRow->product_type === 'I') {
-                
+
                 foreach ($rows as $row) {
                     $cup['ingredients'][] = [
                         'name' => $row->product_name,

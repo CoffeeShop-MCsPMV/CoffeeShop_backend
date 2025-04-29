@@ -12,15 +12,15 @@ return new class extends Migration
     public function up(): void
     {
         DB::table('orders')->insert([
-            ['user' => 2, 'order_status' => 'COM', 'total_cost'=>1.5,],
-            ['user' => 1, 'order_status' => 'COM', 'total_cost'=>2.5,],
-            ['user' => 2, 'order_status' => 'COM', 'total_cost'=>1.5,],
-            ['user' => 1, 'order_status' => 'COM', 'total_cost'=>2.5,],
-            ['user' => 1, 'order_status' => 'COM', 'total_cost'=>2.8,],
-            ['user' => 2, 'order_status' => 'COM', 'total_cost'=>2.8,],
-            ['user' => 2, 'order_status' => 'COM', 'total_cost'=>4.0,],
-            ['user' => 1, 'order_status' => 'COM', 'total_cost'=>4.0,],
-            ['user' => 2, 'order_status' => 'COM', 'total_cost'=>3.5,],
+            ['user' => 2, 'order_status' => 'COM', 'total_cost' => 1.5,],
+            ['user' => 1, 'order_status' => 'COM', 'total_cost' => 2.5,],
+            ['user' => 2, 'order_status' => 'COM', 'total_cost' => 1.5,],
+            ['user' => 1, 'order_status' => 'COM', 'total_cost' => 2.5,],
+            ['user' => 1, 'order_status' => 'COM', 'total_cost' => 2.8,],
+            ['user' => 2, 'order_status' => 'COM', 'total_cost' => 2.8,],
+            ['user' => 2, 'order_status' => 'COM', 'total_cost' => 4.0,],
+            ['user' => 1, 'order_status' => 'COM', 'total_cost' => 4.0,],
+            ['user' => 2, 'order_status' => 'COM', 'total_cost' => 3.5,],
         ]);
 
         DB::table('order_items')->insert([

@@ -27,11 +27,6 @@ Route::post('/orders', [OrderController::class, 'store']);
 Route::get('/top-products', [ContentController::class, 'topProducts']);
 Route::get('/orders/{order_id}', [OrderController::class, 'show']);
 
-
-
-
-
-
 Route::middleware(['auth:sanctum'])
     ->group(function () {
         Route::get('/users/{id}', [UserController::class, 'show']);
@@ -47,8 +42,6 @@ Route::middleware(['auth:sanctum'])
         Route::get('/most-purchased-product', [UserController::class, 'getMostPurchasedProduct']);
         Route::get('/order-count', [UserController::class, 'countUserOrders']);
         Route::get('/user-orders-product', [OrderController::class, 'UserOrdersProduct']);
-
-        
     });
 
 Route::middleware(['auth:sanctum', Admin::class])

@@ -6,7 +6,6 @@ use Illuminate\Support\Facades\Auth;
 
 use App\Models\Order;
 use App\Models\User;
-// use Illuminate\Container\Attributes\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 

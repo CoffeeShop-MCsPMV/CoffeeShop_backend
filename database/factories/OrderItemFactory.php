@@ -11,7 +11,6 @@ class OrderItemFactory extends Factory
     {
         return [
             'order_id' => Order::factory(), 
-            // 'item_price' => $this->faker->randomFloat(2, 5, 500)
         ];
     }
 }

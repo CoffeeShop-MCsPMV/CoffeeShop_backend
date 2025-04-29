@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\DB;
 
 class ContentController extends Controller
 {
-    
+
 
     public function show($cup_id, $product_id)
     {
@@ -21,7 +21,7 @@ class ContentController extends Controller
         return $cup_content[0];
     }
 
-    
+
     public function contentsOfCup()
     {
         $content = DB::select(
