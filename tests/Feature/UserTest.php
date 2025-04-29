@@ -39,8 +39,6 @@ class UserTest extends TestCase
     }
 
     public function test_users_auth() : void {
-        //$this->withoutExceptionHandling();
-        // create rögzíti az adatbázisban a felh-t
         $admin = User::factory()->create([
             'profile_type' => "A",
         ]);

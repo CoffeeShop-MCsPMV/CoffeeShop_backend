@@ -16,11 +16,8 @@ class RegistrationTest extends TestCase
             'email' => 'testing@example.com',
             'password' => 'password1',
             'password_confirmation' => 'password1',
-            // 'is_suscribed'=>0,
-            // 'profile_type'=>'U'
         ]);
 
-        // $this->assertAuthenticated();
         $this->assertDatabaseHas('users', ['name' => 'Test User']);
     }
 }

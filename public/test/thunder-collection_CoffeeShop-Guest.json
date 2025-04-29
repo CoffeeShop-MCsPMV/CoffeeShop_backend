@@ -1,0 +1,107 @@
+{
+    "clientName": "Thunder Client",
+    "collectionName": "CoffeeShop-Guest",
+    "collectionId": "a6b98b91-6a9a-4926-80f0-8a306f9bcedb",
+    "dateExported": "2025-04-27T16:56:27.670Z",
+    "version": "1.2",
+    "folders": [],
+    "requests": [
+        {
+            "_id": "71500711-0891-4558-8a83-f3f77f6e1624",
+            "colId": "a6b98b91-6a9a-4926-80f0-8a306f9bcedb",
+            "containerId": "",
+            "name": "getProducts",
+            "url": "/products",
+            "method": "GET",
+            "sortNum": 10000,
+            "created": "2025-04-27T16:45:23.253Z",
+            "modified": "2025-04-27T16:47:04.659Z",
+            "headers": []
+        },
+        {
+            "_id": "63a0e59e-6753-461f-9573-2f1156d6df9a",
+            "colId": "a6b98b91-6a9a-4926-80f0-8a306f9bcedb",
+            "containerId": "",
+            "name": "getAvailableProductsByType",
+            "url": "/by-type?type=F",
+            "method": "GET",
+            "sortNum": 20000,
+            "created": "2025-04-27T16:45:46.174Z",
+            "modified": "2025-04-27T16:48:09.591Z",
+            "headers": [],
+            "params": [
+                {
+                    "name": "type",
+                    "value": "F",
+                    "isPath": false
+                }
+            ]
+        },
+        {
+            "_id": "50effcff-1491-427e-bc3b-8b0b5699d2af",
+            "colId": "a6b98b91-6a9a-4926-80f0-8a306f9bcedb",
+            "containerId": "",
+            "name": "getAvailableProductsByCategory",
+            "url": "/by-category?category=IDR",
+            "method": "GET",
+            "sortNum": 30000,
+            "created": "2025-04-27T16:46:02.680Z",
+            "modified": "2025-04-27T16:48:36.651Z",
+            "headers": [],
+            "params": [
+                {
+                    "name": "category",
+                    "value": "IDR",
+                    "isPath": false
+                }
+            ]
+        },
+        {
+            "_id": "d6556d31-4bbd-478c-bdb7-11e3037b8632",
+            "colId": "a6b98b91-6a9a-4926-80f0-8a306f9bcedb",
+            "containerId": "",
+            "name": "storeOrders",
+            "url": "/orders",
+            "method": "POST",
+            "sortNum": 40000,
+            "created": "2025-04-27T16:46:21.139Z",
+            "modified": "2025-04-27T16:54:28.786Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "{\r\n  \"products\": [\r\n    [20005, 20002,20003,20004],\r\n    20015\r\n  ]\r\n}\r\n\r\n",
+                "form": []
+            }
+        },
+        {
+            "_id": "634518f7-c8f1-404e-87f1-8969b63253e5",
+            "colId": "a6b98b91-6a9a-4926-80f0-8a306f9bcedb",
+            "containerId": "",
+            "name": "getTopProducts",
+            "url": "/top-products",
+            "method": "GET",
+            "sortNum": 50000,
+            "created": "2025-04-27T16:46:43.134Z",
+            "modified": "2025-04-27T16:55:34.031Z",
+            "headers": []
+        },
+        {
+            "_id": "5244d75c-4a64-423e-bb8f-1edad8469daf",
+            "colId": "a6b98b91-6a9a-4926-80f0-8a306f9bcedb",
+            "containerId": "",
+            "name": "getOrderById",
+            "url": "/orders/9",
+            "method": "GET",
+            "sortNum": 60000,
+            "created": "2025-04-27T16:46:53.071Z",
+            "modified": "2025-04-27T16:56:19.695Z",
+            "headers": []
+        }
+    ],
+    "settings": {
+        "options": {
+            "baseUrl": "http://127.0.0.1:8000/api"
+        }
+    },
+    "ref": "HJ2lGGWhdg0R_eWWsW2d-QazS1pLdB6xplR7lvhT8sm9EBsTYSNlsQJucvSEGKXhKrSAfP99IHPa_WpYbU3F3A"
+}

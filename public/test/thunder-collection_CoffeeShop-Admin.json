@@ -1,0 +1,312 @@
+{
+    "clientName": "Thunder Client",
+    "collectionName": "CoffeeShop-Admin",
+    "collectionId": "d14ec801-ef7f-4ea9-9e2e-88e108919d0f",
+    "dateExported": "2025-04-27T16:26:37.139Z",
+    "version": "1.2",
+    "folders": [],
+    "requests": [
+        {
+            "_id": "358a3cfc-60ce-425d-946c-3880cb056e3b",
+            "colId": "d14ec801-ef7f-4ea9-9e2e-88e108919d0f",
+            "containerId": "",
+            "name": "login",
+            "url": "/login?email=testadmin@example.com&password=admin123",
+            "method": "POST",
+            "sortNum": 10000,
+            "created": "2025-01-09T13:54:31.706Z",
+            "modified": "2025-01-25T08:19:42.904Z",
+            "headers": [],
+            "params": [
+                {
+                    "name": "email",
+                    "value": "testadmin@example.com",
+                    "isPath": false
+                },
+                {
+                    "name": "password",
+                    "value": "admin123",
+                    "isPath": false
+                }
+            ]
+        },
+        {
+            "_id": "c1ba9b8c-ff20-4cb0-8172-4abd59335946",
+            "colId": "d14ec801-ef7f-4ea9-9e2e-88e108919d0f",
+            "containerId": "",
+            "name": "getUsers",
+            "url": "/users",
+            "method": "GET",
+            "sortNum": 40000,
+            "created": "2025-04-27T15:43:38.832Z",
+            "modified": "2025-04-27T15:43:54.287Z",
+            "headers": [],
+            "auth": {
+                "type": "bearer",
+                "bearer": "1|XzLJ7JPArFJRZqdpoB5GEKewMZSdoJzeXuL5jtPA002357be"
+            }
+        },
+        {
+            "_id": "8f9a268a-cd76-4d27-9f27-bd0d0ea250b3",
+            "colId": "d14ec801-ef7f-4ea9-9e2e-88e108919d0f",
+            "containerId": "",
+            "name": "getOrders",
+            "url": "/orders",
+            "method": "GET",
+            "sortNum": 50000,
+            "created": "2025-04-27T15:44:33.868Z",
+            "modified": "2025-04-27T15:44:49.552Z",
+            "headers": [],
+            "auth": {
+                "type": "bearer",
+                "bearer": "1|XzLJ7JPArFJRZqdpoB5GEKewMZSdoJzeXuL5jtPA002357be"
+            }
+        },
+        {
+            "_id": "cd3cba41-cf2b-4fe8-bdf9-8794908d3fff",
+            "colId": "d14ec801-ef7f-4ea9-9e2e-88e108919d0f",
+            "containerId": "",
+            "name": "getUsersWithReadyOrders",
+            "url": "/ready-orders",
+            "method": "GET",
+            "sortNum": 70000,
+            "created": "2025-04-27T15:46:35.549Z",
+            "modified": "2025-04-27T15:46:49.301Z",
+            "headers": [],
+            "auth": {
+                "type": "bearer",
+                "bearer": "1|XzLJ7JPArFJRZqdpoB5GEKewMZSdoJzeXuL5jtPA002357be"
+            }
+        },
+        {
+            "_id": "3e5aa252-867a-45bb-ae13-38e210d8a524",
+            "colId": "d14ec801-ef7f-4ea9-9e2e-88e108919d0f",
+            "containerId": "",
+            "name": "getActiveOrdersWithContents",
+            "url": "/active-contents",
+            "method": "GET",
+            "sortNum": 90000,
+            "created": "2025-04-27T15:47:57.141Z",
+            "modified": "2025-04-27T16:02:42.190Z",
+            "headers": [],
+            "auth": {
+                "type": "bearer",
+                "bearer": "1|XzLJ7JPArFJRZqdpoB5GEKewMZSdoJzeXuL5jtPA002357be"
+            }
+        },
+        {
+            "_id": "b278a352-9e4f-4a84-86de-040440172bb4",
+            "colId": "d14ec801-ef7f-4ea9-9e2e-88e108919d0f",
+            "containerId": "",
+            "name": "getOrderByStatus",
+            "url": "/by-status?status=COM",
+            "method": "GET",
+            "sortNum": 100000,
+            "created": "2025-04-27T15:48:19.349Z",
+            "modified": "2025-04-27T16:05:36.513Z",
+            "headers": [],
+            "params": [
+                {
+                    "name": "status",
+                    "value": "COM",
+                    "isPath": false
+                }
+            ],
+            "auth": {
+                "type": "bearer",
+                "bearer": "1|XzLJ7JPArFJRZqdpoB5GEKewMZSdoJzeXuL5jtPA002357be"
+            }
+        },
+        {
+            "_id": "ebe48301-c27f-4dd6-9302-51474b362c54",
+            "colId": "d14ec801-ef7f-4ea9-9e2e-88e108919d0f",
+            "containerId": "",
+            "name": "updateUser",
+            "url": "/users/3?name=Vendég Felhasználó",
+            "method": "PATCH",
+            "sortNum": 120000,
+            "created": "2025-04-27T15:49:22.592Z",
+            "modified": "2025-04-27T16:07:59.462Z",
+            "headers": [],
+            "params": [
+                {
+                    "name": "name",
+                    "value": "Vendég Felhasználó",
+                    "isPath": false
+                }
+            ],
+            "auth": {
+                "type": "bearer",
+                "bearer": "1|XzLJ7JPArFJRZqdpoB5GEKewMZSdoJzeXuL5jtPA002357be"
+            }
+        },
+        {
+            "_id": "776bb4dd-2834-42dd-9eac-a54d8c62ab57",
+            "colId": "d14ec801-ef7f-4ea9-9e2e-88e108919d0f",
+            "containerId": "",
+            "name": "postUser",
+            "url": "/users",
+            "method": "POST",
+            "sortNum": 140000,
+            "created": "2025-04-27T15:49:58.230Z",
+            "modified": "2025-04-27T16:12:46.112Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "{\r\n    \"name\": \"John Doe\",\r\n    \"email\": \"johndoe@example.com\",\r\n    \"password\": \"secretpassword\",\r\n    \"is_subscribed\": true,\r\n    \"profile_type\": \"A\"\r\n}\r\n",
+                "form": []
+            },
+            "auth": {
+                "type": "bearer",
+                "bearer": "1|XzLJ7JPArFJRZqdpoB5GEKewMZSdoJzeXuL5jtPA002357be"
+            }
+        },
+        {
+            "_id": "dc985b77-9773-460c-9a4a-f8e6e0fb4d7f",
+            "colId": "d14ec801-ef7f-4ea9-9e2e-88e108919d0f",
+            "containerId": "",
+            "name": "deleteUser",
+            "url": "/users/5",
+            "method": "DELETE",
+            "sortNum": 150000,
+            "created": "2025-04-27T15:50:18.605Z",
+            "modified": "2025-04-27T16:13:37.566Z",
+            "headers": [],
+            "auth": {
+                "type": "bearer",
+                "bearer": "1|XzLJ7JPArFJRZqdpoB5GEKewMZSdoJzeXuL5jtPA002357be"
+            }
+        },
+        {
+            "_id": "9b9670ea-e5e7-4cb3-bc9f-7d55bb097d5c",
+            "colId": "d14ec801-ef7f-4ea9-9e2e-88e108919d0f",
+            "containerId": "",
+            "name": "updateOrder",
+            "url": "/orders/2?user=2",
+            "method": "PUT",
+            "sortNum": 160000,
+            "created": "2025-04-27T15:50:41.013Z",
+            "modified": "2025-04-27T16:15:14.493Z",
+            "headers": [],
+            "params": [
+                {
+                    "name": "user",
+                    "value": "2",
+                    "isPath": false
+                }
+            ],
+            "auth": {
+                "type": "bearer",
+                "bearer": "1|XzLJ7JPArFJRZqdpoB5GEKewMZSdoJzeXuL5jtPA002357be"
+            }
+        },
+        {
+            "_id": "1be226a1-d89b-4e16-a65e-dcee84d315f3",
+            "colId": "d14ec801-ef7f-4ea9-9e2e-88e108919d0f",
+            "containerId": "",
+            "name": "postProduct",
+            "url": "/products",
+            "method": "POST",
+            "sortNum": 170000,
+            "created": "2025-04-27T15:51:06.837Z",
+            "modified": "2025-04-27T16:19:08.993Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "{\r\n    \"name\": \"Goat Milk\",\r\n    \"type\": \"I\",\r\n    \"category\": \"MIL\",\r\n    \"is_available\": 0,\r\n    \"current_price\": 0.8,\r\n    \"unit\": 100\r\n}\r\n",
+                "form": []
+            },
+            "auth": {
+                "type": "bearer",
+                "bearer": "1|XzLJ7JPArFJRZqdpoB5GEKewMZSdoJzeXuL5jtPA002357be"
+            }
+        },
+        {
+            "_id": "2c89fcc9-614d-436f-b42f-11df5307baf1",
+            "colId": "d14ec801-ef7f-4ea9-9e2e-88e108919d0f",
+            "containerId": "",
+            "name": "postProduct-Recipe",
+            "url": "/product-recipes?product=20022&ingredient=20070&quantity=1",
+            "method": "POST",
+            "sortNum": 180000,
+            "created": "2025-04-27T15:51:27.514Z",
+            "modified": "2025-04-27T16:23:27.496Z",
+            "headers": [],
+            "params": [
+                {
+                    "name": "product",
+                    "value": "20022",
+                    "isPath": false
+                },
+                {
+                    "name": "ingredient",
+                    "value": "20070",
+                    "isPath": false
+                },
+                {
+                    "name": "quantity",
+                    "value": "1",
+                    "isPath": false
+                }
+            ],
+            "auth": {
+                "type": "bearer",
+                "bearer": "1|XzLJ7JPArFJRZqdpoB5GEKewMZSdoJzeXuL5jtPA002357be"
+            }
+        },
+        {
+            "_id": "92863eb3-43d8-4f68-9af5-969bcea0dbdc",
+            "colId": "d14ec801-ef7f-4ea9-9e2e-88e108919d0f",
+            "containerId": "",
+            "name": "getIngredientOfProduct",
+            "url": "/product_recipes/ingredients-of-product/20022",
+            "method": "GET",
+            "sortNum": 190000,
+            "created": "2025-04-27T15:52:08.426Z",
+            "modified": "2025-04-27T16:24:19.977Z",
+            "headers": [],
+            "auth": {
+                "type": "bearer",
+                "bearer": "1|XzLJ7JPArFJRZqdpoB5GEKewMZSdoJzeXuL5jtPA002357be"
+            }
+        },
+        {
+            "_id": "3b8a7260-b797-4e58-807d-91eecec0f092",
+            "colId": "d14ec801-ef7f-4ea9-9e2e-88e108919d0f",
+            "containerId": "",
+            "name": "getContentsOfCups",
+            "url": "/contents-of-cup",
+            "method": "GET",
+            "sortNum": 200000,
+            "created": "2025-04-27T15:52:24.927Z",
+            "modified": "2025-04-27T16:25:00.308Z",
+            "headers": [],
+            "auth": {
+                "type": "bearer",
+                "bearer": "1|XzLJ7JPArFJRZqdpoB5GEKewMZSdoJzeXuL5jtPA002357be"
+            }
+        },
+        {
+            "_id": "c90ab0b4-cc89-46cc-abba-c11a5d8dd8f7",
+            "colId": "d14ec801-ef7f-4ea9-9e2e-88e108919d0f",
+            "containerId": "",
+            "name": "getSuscribedUsers",
+            "url": "/subscribed",
+            "method": "GET",
+            "sortNum": 210000,
+            "created": "2025-04-27T16:25:37.423Z",
+            "modified": "2025-04-27T16:25:48.842Z",
+            "headers": [],
+            "auth": {
+                "type": "bearer",
+                "bearer": "1|XzLJ7JPArFJRZqdpoB5GEKewMZSdoJzeXuL5jtPA002357be"
+            }
+        }
+    ],
+    "settings": {
+        "options": {
+            "baseUrl": "http://127.0.0.1:8000/api"
+        }
+    },
+    "ref": "ahGwMConSlCZe6YxKX07CqwT2Oa_Miy4MScuLRI0V1aNM8yxJLc06Mpz37Lt6Qt502xcr1R9kmM5TpyppN2C6w"
+}
